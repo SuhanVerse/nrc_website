@@ -1,0 +1,63 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ProjectImage from '../../components/ProjectImage.astro';
+import { withBase } from '../../components/paths';
+import { siteConfig } from '../../content/site';
+import { club } from '../../content/public';
+
+const url = (path: string) => withBase(path, siteConfig.basePath);
+---
+
+<SiteLayout
+  title="Projects"
+  description="Explore the Object Sorting System, 3D Printer and Projectile Turret projects from NCE Robotics Club."
+  section="projects"
+>
+  <section class="container projects-page" aria-labelledby="projects-heading">
+    <nav aria-label="Breadcrumb" class="breadcrumb projects-breadcrumb">
+      <a href={url('/')}>Home</a> <span aria-hidden="true">/</span>{' '}
+      <span aria-current="page">Projects</span>
+    </nav>
+    <h1 id="projects-heading">Club projects</h1>
+    <div class="project-list full-project-list">
+      {club.projects.map((project) => (
+        <article class="project-row">
+          <div class="project-title">
+            <p class="label">{project.category}</p>
+            <h2>
+              <a
+                class="project-heading-link"
+                href={url(`/projects/${project.slug}/`)}
+              >
+                {project.title}
+              </a>
+            </h2>
+          </div>
+          <div class="project-copy">
+            <p>{project.summary}</p>
+            <div class="project-links">
+              <a class="arrow-link" href={url(`/projects/${project.slug}/`)}>
+                Project details<span class="sr-only"> for {project.title}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <a
+                class="arrow-link"
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {project.linkLabel}
+                <span class="sr-only">
+                  {' '}
+                  for {project.title} (opens in a new tab)
+                </span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+          <ProjectImage project={project} />
+        </article>
+      ))}
+    </div>
+  </section>
+</SiteLayout>

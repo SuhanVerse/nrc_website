@@ -1,0 +1,20 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { url } from '../content/site';
+---
+
+<SiteLayout title="Page not found" noindex>
+  <section class="container error-page">
+    <p class="label">404</p>
+    <h1>Page not found.</h1>
+    <p>Try the home page or explore our projects.</p>
+    <div class="hero-actions">
+      <a class="button primary" href={url('/')}>
+        Back to the club
+      </a>
+      <a class="button outline" href={url('/projects/')}>
+        Club projects
+      </a>
+    </div>
+  </section>
+</SiteLayout>

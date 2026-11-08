@@ -1,0 +1,48 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { club } from '../content/public';
+import { resolveMembershipState } from '../features/membership/state';
+const membership = resolveMembershipState(club.membership);
+---
+
+<SiteLayout title="Membership" section="membership">
+  <section class="container membership-page">
+    <p class="label page-label">Join the club</p>
+    <h1>Membership</h1>
+    <div class="membership-status-card">
+      <span class="status-pill">
+        {membership.status === 'open'
+          ? 'Applications open'
+          : 'Applications closed'}
+      </span>
+      <h2>
+        {membership.status === 'open'
+          ? 'Become a member.'
+          : 'Applications are currently closed.'}
+      </h2>
+      <p>
+        {membership.status === 'open'
+          ? 'Apply through the official club form.'
+          : 'Follow our official channels for the next announcement.'}
+      </p>
+      {membership.status === 'open' && (
+        <a
+          class="button primary"
+          href={membership.formUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open registration
+          <span class="sr-only"> (Google Forms, opens in a new tab)</span>
+        </a>
+      )}
+      <div class="membership-socials">
+        {club.club.socials.map((s) => (
+          <a class="button outline" href={s.url}>
+            {s.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</SiteLayout>

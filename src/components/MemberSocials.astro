@@ -1,0 +1,43 @@
+---
+import type { Member } from '../content/public';
+import { url } from '../content/site';
+interface Props {
+  member: Member;
+}
+const { member } = Astro.props;
+const platforms = ['Facebook', 'LinkedIn', 'GitHub'] as const;
+---
+
+<div class="member-socials" aria-label={`${member.name} social profiles`}>
+  {platforms.map((platform) => {
+    const profile = member.socials.find((s) => s.label === platform);
+    return profile ? (
+      <a
+        href={profile.url}
+        class="member-social-link"
+        aria-label={`${member.name} on ${platform}`}
+      >
+        <img
+          src={url(`/icons/${platform.toLowerCase()}.svg`)}
+          alt=""
+          width="28"
+          height="28"
+          loading="lazy"
+        />
+      </a>
+    ) : (
+      <span
+        class="member-social-link is-pending"
+        title={`${platform} profile not supplied`}
+      >
+        <img
+          src={url(`/icons/${platform.toLowerCase()}.svg`)}
+          alt={`${platform} profile not supplied`}
+          width="28"
+          height="28"
+          loading="lazy"
+        />
+      </span>
+    );
+  })}
+</div>

@@ -1,0 +1,82 @@
+---
+import { navigation, siteConfig, url } from '../content/site';
+import Logo from './Logo.astro';
+import Arrow from './Arrow.astro';
+const { section = '' } = Astro.props;
+---
+
+<a class="skip-link" href="#main">
+  Skip to content
+</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a href={url('/')} class="brand">
+      <Logo />
+      <span>
+        National College
+        <br />
+        of Engineering
+      </span>
+    </a>
+    <nav aria-label="Main navigation" class="desktop-nav">
+      {navigation.map(([label, path]) => (
+        <a
+          href={url(path)}
+          aria-current={section === label.toLowerCase() ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <button
+        class="button outline menu-button"
+        data-menu-open
+        aria-haspopup="dialog"
+        aria-expanded="false"
+      >
+        Menu
+      </button>
+      <div class="account-wrap">
+        <a
+          class="account-link"
+          href={siteConfig.portalUrl ?? url('/signin/')}
+          aria-label="Member login"
+          aria-describedby="account-tip"
+        >
+          <img src={url('/icons/account.svg')} alt="" width="28" height="28" />
+        </a>
+        <span id="account-tip" role="tooltip" class="tooltip">
+          Sign in
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+<dialog class="menu-sheet" id="site-menu" aria-label="Club menu">
+  <div class="menu-top">
+    <Logo />
+    <button class="button outline" data-menu-close>
+      Close menu
+    </button>
+  </div>
+  <nav aria-label="Mobile navigation">
+    {navigation.map(([label, path]) => (
+      <a
+        class="button outline"
+        href={url(path)}
+        aria-current={section === label.toLowerCase() ? 'page' : undefined}
+      >
+        {label}
+        <Arrow />
+      </a>
+    ))}
+  </nav>
+</dialog>
+<noscript>
+  <nav class="no-script-nav" aria-label="Page navigation">
+    {navigation.map(([label, path]) => (
+      <a href={url(path)}>{label}</a>
+    ))}
+  </nav>
+</noscript>

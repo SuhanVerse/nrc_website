@@ -1,0 +1,70 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { siteConfig } from '../content/site';
+import '../styles/site.css';
+import archivoFont from '../../public/fonts/archivo.woff2?url';
+import textFont from '../../public/fonts/source-sans-3.woff2?url';
+interface Props {
+  title: string;
+  description?: string;
+  section?: string;
+  noindex?: boolean;
+}
+const {
+  title,
+  description = 'NCE Robotics Club — student projects, people and technical activities at National College of Engineering, Lalitpur.',
+  section = '',
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, siteConfig.siteOrigin);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="preload"
+      href={archivoFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={textFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>{title === 'Home' ? 'NCE Robotics Club' : `${title} · NCE Robotics Club`}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f7f7f4" />
+    <link
+      rel="icon"
+      type="image/webp"
+      href={`${siteConfig.basePath}images/club-logo.webp`}
+    />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={canonical} />
+    )}
+    <meta property="og:title" content={`${title} · NCE Robotics Club`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body>
+    <SiteHeader section={section} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+    <script>
+      import '../features/navigation';
+    </script>
+  </body>
+</html>

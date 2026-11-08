@@ -1,0 +1,261 @@
+{
+  "asOf": "2026-11-08",
+  "club": {
+    "name": "NCE Robotics Club",
+    "college": "National College of Engineering",
+    "email": "nceofficialroboticsclub@gmail.com",
+    "location": "Block B, National College of Engineering",
+    "address": "Talchhikhel, Lalitpur-14, Nepal",
+    "socials": [
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/nce_robotics/"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/ncerobo/"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/company/nce-robotics-club/posts/"
+      }
+    ]
+  },
+  "membership": {
+    "status": "closed",
+    "formUrl": null
+  },
+  "upcomingEvents": [],
+  "committeeTerm": null,
+  "members": [
+    {
+      "slug": "prabhat-rawal",
+      "name": "Prabhat Rawal",
+      "role": "President",
+      "academicLabel": "BCT 079",
+      "portrait": "/images/prabhat-rawal.webp",
+      "socials": [
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/prabhat-rawal"
+        }
+      ]
+    },
+    {
+      "slug": "bishal",
+      "name": "Bishal Gyawalli",
+      "role": "R&D Head",
+      "academicLabel": "BCT 079",
+      "portrait": "/images/bishal-gyawalli.webp",
+      "socials": []
+    },
+    {
+      "slug": "sudikshya",
+      "name": "Sudhikashya Tako",
+      "role": "Event Manager",
+      "academicLabel": "BCT 079",
+      "portrait": "/images/sudhikashya.webp",
+      "socials": []
+    },
+    {
+      "slug": "pratham",
+      "name": "Pratham Timalsina",
+      "role": "Secretary",
+      "academicLabel": "BEI 080",
+      "portrait": "/images/pratham.webp",
+      "socials": []
+    },
+    {
+      "slug": "suhan-khadka",
+      "name": "Suhan Khadka",
+      "role": "Treasurer",
+      "academicLabel": "BCT 080",
+      "portrait": "/images/suhan-khadka.webp",
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/suhan.khadka.35"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/suhan-khadka/"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/SuhanVerse"
+        }
+      ]
+    },
+    {
+      "slug": "arushi-pandey",
+      "name": "Arushi Pandey",
+      "role": "Member",
+      "academicLabel": "BEI 080",
+      "portrait": "/images/arushi-pandey.webp",
+      "socials": []
+    },
+    {
+      "slug": "shrawan",
+      "name": "Shrawan Parsai",
+      "role": "Member",
+      "academicLabel": "BEI 080",
+      "portrait": "/images/shrawan.webp",
+      "socials": []
+    },
+    {
+      "slug": "rhythm",
+      "name": "Rhythm Darlami",
+      "role": "Member",
+      "academicLabel": "BEI 081",
+      "portrait": "/images/rhythm.webp",
+      "socials": []
+    },
+    {
+      "slug": "sarad",
+      "name": "Sarad Rai",
+      "role": "Member",
+      "academicLabel": "BEI 081",
+      "portrait": "/images/sarad.webp",
+      "socials": []
+    },
+    {
+      "slug": "pranishmaharjan",
+      "name": "Pranish Maharjan",
+      "role": "Member",
+      "academicLabel": "BEI 082",
+      "portrait": "/images/pranish-maharjan.webp",
+      "socials": []
+    },
+    {
+      "slug": "samarpan-khadka",
+      "name": "Samarpan Khadka",
+      "role": "Member",
+      "academicLabel": "BCT 082",
+      "portrait": "/images/samarpan-khadka.webp",
+      "socials": []
+    },
+    {
+      "slug": "rachana-tamrakar",
+      "name": "Rachana Tamrakar",
+      "role": "Member",
+      "academicLabel": "BEI 082",
+      "portrait": "/images/rachana-tamrakar.webp",
+      "socials": []
+    },
+    {
+      "slug": "pravin-pandey",
+      "name": "Pravin Pandey",
+      "role": "Member",
+      "academicLabel": "BEI 082",
+      "portrait": "/images/pravin-pandey.webp",
+      "socials": []
+    }
+  ],
+  "projects": [
+    {
+      "slug": "object-sorting-system",
+      "title": "Object Sorting System",
+      "summary": "A conveyor-based sorting prototype developed for Yatra 5.0, exploring camera sensing and servo-controlled routing.",
+      "url": "https://github.com/SuhanVerse/Object_sorting_Robot",
+      "linkLabel": "View repository",
+      "category": "Prototype",
+      "preview": "object-sorting-480.webp",
+      "detailAsset": "object-sorting",
+      "width": 1400,
+      "height": 934,
+      "fit": "contain",
+      "alt": "Object Sorting System conveyor prototype with camera, controllers and wiring"
+    },
+    {
+      "slug": "3d-printer",
+      "title": "3D Printer",
+      "summary": "A club project in 3D printing.",
+      "url": "https://www.facebook.com/share/r/1CH2s4SNeG/",
+      "linkLabel": "View project video",
+      "category": "Fabrication",
+      "preview": null,
+      "detailAsset": null,
+      "width": 0,
+      "height": 0,
+      "fit": "cover",
+      "alt": ""
+    },
+    {
+      "slug": "projectile-turret",
+      "title": "Projectile Turret",
+      "summary": "A projectile turret project.",
+      "url": "https://www.instagram.com/reel/DaP3qz_z7Lp/",
+      "linkLabel": "View project video",
+      "category": "Robotics",
+      "preview": "projectile-turret-480.webp",
+      "detailAsset": "projectile-turret",
+      "width": 1400,
+      "height": 933,
+      "fit": "cover",
+      "alt": "Projectile Turret project at the exhibition"
+    }
+  ],
+  "events": {
+    "yatra5": {
+      "dates": "31 July–1 August 2026",
+      "reported": "40 team entries · 200+ registered participants · 800+ audience",
+      "attribution": "Reported by National College of Engineering for the Robotics Club’s Yatra 5.0 activities. Registrations and audience are different counts.",
+      "activities": "LFR Mesmerizer · Robo Soccer · Robo Sumo (5 kg) · Robo Pop",
+      "recapUrl": "https://nce.edu.np/nce-yatra-5-0/",
+      "photos": [
+        {
+          "name": "projectile-turret",
+          "caption": "Projectile Turret close-up",
+          "src": "/images/projectile-turret.webp"
+        },
+        {
+          "name": "object-sorting",
+          "caption": "Object Sorting System demonstration",
+          "src": "/images/object-sorting.webp"
+        },
+        {
+          "name": "workbench",
+          "caption": "Project workbench at Yatra",
+          "src": "/images/workbench.webp"
+        },
+        {
+          "name": "events-yatra-campus",
+          "caption": "Yatra on the NCE campus",
+          "src": "/images/events-yatra-campus.webp"
+        },
+        {
+          "name": "yatra-participants",
+          "caption": "Participants at the exhibition",
+          "src": "/images/yatra-participants.webp"
+        },
+        {
+          "name": "yatra-turret-booth",
+          "caption": "Projectile Turret booth",
+          "src": "/images/yatra-turret-booth.webp"
+        }
+      ]
+    },
+    "editions": [
+      {
+        "label": "Yatra 5.0",
+        "href": "/events/yatra-5/"
+      },
+      {
+        "label": "Yatra 4.0",
+        "href": "https://nce.edu.np/yatra-4-o/"
+      },
+      {
+        "label": "Yatra 3.0",
+        "href": "https://nce.edu.np/yatra-3-0/"
+      },
+      {
+        "label": "Yatra 2",
+        "href": "https://nce.edu.np/yatra2/"
+      },
+      {
+        "label": "Yatra",
+        "href": "https://nce.edu.np/yatra/"
+      }
+    ]
+  }
+}

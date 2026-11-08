@@ -1,0 +1,72 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { withBase } from '../../components/paths';
+import { siteConfig } from '../../content/site';
+import { club } from '../../content/public';
+import UpcomingEvents from '../../components/UpcomingEvents.astro';
+
+const url = (path: string) => withBase(path, siteConfig.basePath);
+const campusSrcSet = [480, 800, 1400]
+  .map(
+    (width) =>
+      `${url(`/images/events-yatra-campus${width === 1400 ? '' : `-${width}`}.webp`)} ${width}w`,
+  )
+  .join(', ');
+---
+
+<SiteLayout
+  title="Events & Yatra"
+  description="Past Yatra editions, robotics competitions and club activities at National College of Engineering."
+  section="events"
+>
+  <section class="events-page container" aria-labelledby="events-title">
+    <p class="label page-label">Club activities</p>
+    <h1 id="events-title">Events &amp; Yatra.</h1>
+    <div class="events-notice">
+      <h2>Upcoming events</h2>
+      <UpcomingEvents />
+    </div>
+    <div class="events-feature">
+      <img
+        class="events-feature-photo"
+        src={url('/images/events-yatra-campus.webp')}
+        srcset={campusSrcSet}
+        sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1199px) calc(100vw - 64px), 1328px"
+        alt="Yatra 5.0 exhibition tents on the NCE campus"
+        width="1400"
+        height="934"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <h2>Yatra 5.0</h2>
+      <a class="button primary compact" href={url('/events/yatra-5/')}>
+        Explore Yatra 5.0
+      </a>
+    </div>
+    <h2 class="section-title">Past editions</h2>
+    <ul class="edition-list">
+      {club.events.editions.map((edition) => (
+        <li class="edition-row">
+          <h3>{edition.label}</h3>
+          <a
+            class="button outline"
+            href={
+              edition.href.startsWith('/') ? url(edition.href) : edition.href
+            }
+            target={edition.href.startsWith('/') ? undefined : '_blank'}
+            rel={
+              edition.href.startsWith('/') ? undefined : 'noopener noreferrer'
+            }
+          >
+            View archive
+            <span class="sr-only">
+              {' '}
+              for {edition.label}
+              {edition.href.startsWith('/') ? '' : ' (opens in a new tab)'}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</SiteLayout>

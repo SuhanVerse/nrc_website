@@ -1,0 +1,40 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { url } from '../content/site';
+---
+
+<SiteLayout title="Motion settings">
+  <section class="settings-page container">
+    <h1>Motion settings</h1>
+    <div class="settings-card">
+      <div>
+        <h2>Automatic photos</h2>
+        <p data-motion-status>
+          On · Photographs change gently every six seconds.
+        </p>
+        <p class="device-note" data-reduced-note hidden>
+          Paused by your device’s reduced-motion setting.
+        </p>
+      </div>
+      <button
+        class="button outline"
+        data-motion-toggle
+        aria-pressed="true"
+        hidden
+      >
+        Turn off
+      </button>
+    </div>
+    <noscript>
+      <p>Photographs stay still while JavaScript is off.</p>
+    </noscript>
+    <div class="hero-actions">
+      <a class="button primary" href={url('/')}>
+        Back to the club
+      </a>
+    </div>
+  </section>
+  <script>
+    import '../features/gallery/preferences';
+  </script>
+</SiteLayout>

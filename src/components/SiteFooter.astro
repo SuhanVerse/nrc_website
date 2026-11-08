@@ -1,0 +1,79 @@
+---
+import { club } from '../content/public';
+import { navigation, siteConfig, url } from '../content/site';
+import Logo from './Logo.astro';
+const identity = club.club;
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-identity">
+      <a href={url('/')} aria-label="NCE Robotics Club home">
+        <Logo />
+      </a>
+      <p class="footer-name">{identity.name}</p>
+      <p>{identity.college}</p>
+    </div>
+    <div>
+      <h2>Explore</h2>
+      <nav aria-label="Footer navigation">
+        {navigation.map(([label, path]) => (
+          <a href={url(path)}>{label}</a>
+        ))}
+      </nav>
+    </div>
+    <div>
+      <h2>Contact the club</h2>
+      <a class="email-link" href={`mailto:${identity.email}`}>
+        {identity.email}
+      </a>
+      <p class="address">
+        Block B, National College of Engineering
+        <br />
+        Talchikhel, Lalitpur-14, Nepal
+      </p>
+    </div>
+    <div>
+      <h2>Connect</h2>
+      <div class="socials">
+        {identity.socials.map((s) => (
+          <a
+            class="social-link"
+            href={s.url}
+            aria-label={`NCE Robotics Club on ${s.label}`}
+          >
+            <img
+              src={url(`/icons/${s.label.toLowerCase()}.svg`)}
+              alt=""
+              width="44"
+              height="44"
+              loading="lazy"
+            />
+          </a>
+        ))}
+        <a
+          class="social-link"
+          href={`mailto:${identity.email}`}
+          aria-label="Email NCE Robotics Club"
+        >
+          <img
+            src={url('/icons/gmail.svg')}
+            alt=""
+            width="44"
+            height="44"
+            loading="lazy"
+          />
+        </a>
+      </div>
+      <div class="footer-links">
+        <a href="https://nce.edu.np/">College website</a>
+        <a href={siteConfig.portalUrl ?? url('/signin/')}>Member sign-in</a>
+        <a href={url('/motion-settings/')}>Motion settings</a>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    © {new Date().getFullYear()} NCE Robotics Club · National College of
+    Engineering
+  </div>
+</footer>

@@ -1,0 +1,16 @@
+---
+import { club } from '../content/public';
+---
+
+{club.upcomingEvents.length ? (
+  <ul class="upcoming-list">
+    {club.upcomingEvents.map((event) => (
+      <li>
+        <a href={event.url}>{event.title}</a>
+        <span>{event.date}</span>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p>No upcoming events announced.</p>
+)}

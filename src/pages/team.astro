@@ -1,0 +1,45 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import MemberSocials from '../components/MemberSocials.astro';
+import Arrow from '../components/Arrow.astro';
+import { club } from '../content/public';
+import { sortCommittee } from '../features/committee/order';
+import { url } from '../content/site';
+const committee = sortCommittee(club.members);
+---
+
+<SiteLayout title="Our committee" section="team">
+  <section class="team-page container" aria-labelledby="team-title">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href={url('/')}>Home</a> <span aria-hidden="true">/</span>{' '}
+      <span aria-current="page">Team</span>
+    </nav>
+    <h1 id="team-title">Our committee</h1>
+    <ul class="member-grid">
+      {committee.map((member, i) => (
+        <li class="member-card">
+          <div class="member-portrait">
+            <img
+              src={url(member.portrait)}
+              alt={member.name}
+              width="180"
+              height="180"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : undefined}
+            />
+          </div>
+          <h2>{member.name}</h2>
+          <p class="member-role">{member.role}</p>
+          <p class="member-batch">{member.academicLabel}</p>
+          <MemberSocials member={member} />
+        </li>
+      ))}
+    </ul>
+    <div class="team-contact">
+      <a class="arrow-link" href={url('/contact/')}>
+        Contact the club
+        <Arrow />
+      </a>
+    </div>
+  </section>
+</SiteLayout>

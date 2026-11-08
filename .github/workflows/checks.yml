@@ -1,0 +1,48 @@
+name: Website checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  public-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        base: ['/', '/website/']
+    env:
+      CI: 'true'
+      COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+      SITE_ORIGIN: https://nceofficialroboticsclub.github.io
+      SITE_BASE: ${{ matrix.base }}
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Install pinned dependencies
+        run: corepack pnpm install --frozen-lockfile --ignore-scripts
+      - name: Check formatting
+        run: corepack pnpm format:check
+      - name: Check types and public content
+        run: corepack pnpm check
+      - name: Test public rules
+        run: corepack pnpm test:unit
+      - name: Build static pages
+        run: corepack pnpm build
+      - name: Install test browser
+        run: corepack pnpm exec playwright install --with-deps chromium
+      - name: Test public browser journeys
+        run: corepack pnpm test:browser

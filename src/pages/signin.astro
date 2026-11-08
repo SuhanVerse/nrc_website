@@ -1,0 +1,27 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Logo from '../components/Logo.astro';
+import { club } from '../content/public';
+import { url } from '../content/site';
+---
+
+<SiteLayout title="Member sign-in" noindex>
+  <section class="signin-area container">
+    <div class="signin-card signin-status-card">
+      <div class="signin-panel">
+        <Logo />
+        <p class="signin-eyebrow">NCE Robotics Club</p>
+        <h1>Member sign-in</h1>
+        <p class="signin-intro">The member portal isn’t available yet.</p>
+        <a class="button primary" href={`mailto:${club.club.email}`}>
+          Contact the club
+        </a>
+        <div class="signin-actions">
+          <a class="button ghost" href={url('/')}>
+            Back to the club
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
