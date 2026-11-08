@@ -1,0 +1,157 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import ProjectImage from '../components/ProjectImage.astro';
+import Arrow from '../components/Arrow.astro';
+import { club } from '../content/public';
+import { sortCommittee } from '../features/committee/order';
+import { url } from '../content/site';
+import UpcomingEvents from '../components/UpcomingEvents.astro';
+const committee = sortCommittee(club.members);
+---
+
+<SiteLayout title="Home" section="home">
+  <section class="hero container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="location">National College of Engineering, Lalitpur</p>
+        <h1>
+          <span>NCE </span>
+          <span>Robotics Club.</span>
+        </h1>
+        <p class="lead">Student-led robotics and hands-on engineering.</p>
+        <div class="hero-actions">
+          <a class="button primary" href={url('/projects/')}>
+            Explore our projects
+            <Arrow />
+          </a>
+          <a class="arrow-link" href={url('/about/')}>
+            About the club
+            <Arrow />
+          </a>
+        </div>
+      </div>
+      <PhotoGallery />
+    </div>
+  </section>
+  <section class="band about-band">
+    <div class="container editorial-grid">
+      <h2>Robotics at NCE.</h2>
+      <div>
+        <p class="body-large">
+          Student projects, robotics competitions and technical activities.
+        </p>
+        <a class="arrow-link" href={url('/about/')}>
+          Get to know the club
+          <Arrow />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="band projects-band">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Club projects</h2>
+        <a class="arrow-link" href={url('/projects/')}>
+          All projects
+          <Arrow />
+        </a>
+      </div>
+      <div class="project-list">
+        {club.projects.map((project) => (
+          <article class="project-row">
+            <div class="project-title">
+              <p class="label">{project.category}</p>
+              <h3>
+                <a href={url(`/projects/${project.slug}/`)}>{project.title}</a>
+              </h3>
+            </div>
+            <div class="project-copy">
+              <p>{project.summary}</p>
+              <a class="arrow-link" href={url(`/projects/${project.slug}/`)}>
+                View project<span class="sr-only">: {project.title}</span>
+                <Arrow />
+              </a>
+            </div>
+            <ProjectImage project={project} />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="band yatra-band">
+    <div class="container yatra-grid">
+      <img
+        class="yatra-photo"
+        src={url('/images/events-yatra-campus-800.webp')}
+        alt="National College of Engineering during Yatra 5.0"
+        width="800"
+        height="534"
+        loading="lazy"
+      />
+      <div class="yatra-copy">
+        <p class="label">31 July–1 August 2026</p>
+        <h2>Yatra 5.0</h2>
+        <p class="body-large">
+          LFR Mesmerizer, Robo Soccer, Robo Sumo and Robo Pop.
+        </p>
+        <div class="result">
+          <img
+            src={url('/icons/trophy.svg')}
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <div>
+            <h3>First place in LFR</h3>
+            <p>NCE Robotics Club at Yatra 5.0</p>
+          </div>
+        </div>
+        <a class="arrow-link" href={url('/events/yatra-5/')}>
+          Explore the Yatra archive
+          <Arrow />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="band team-band">
+    <div class="container">
+      <div class="section-heading">
+        <h2>The current committee</h2>
+        <a class="arrow-link" href={url('/team/')}>
+          Meet the committee
+          <Arrow />
+        </a>
+      </div>
+      <div class="teaser-grid">
+        {committee.slice(0, 3).map((member) => (
+          <article class="person-card">
+            <img
+              src={url(member.portrait)}
+              alt={member.name}
+              width="104"
+              height="104"
+              loading="lazy"
+            />
+            <div>
+              <h3>{member.name}</h3>
+              <p>{member.role}</p>
+              <p class="muted small">{member.academicLabel}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="upcoming-strip">
+    <div class="container">
+      <h2>Upcoming events</h2>
+      <UpcomingEvents />
+      <a class="arrow-link" href={url('/events/')}>
+        Past events
+        <Arrow />
+      </a>
+    </div>
+  </section>
+</SiteLayout>

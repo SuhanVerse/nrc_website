@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+public/
+.local/
+.astro/
+dist/
+playwright-report/
+test-results/
+LICENSE

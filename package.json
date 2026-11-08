@@ -1,0 +1,37 @@
+{
+  "name": "nce-robotics-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24.16.0 <25"
+  },
+  "packageManager": "pnpm@10.34.3",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check && node scripts/check-content.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:unit": "node --test tests/unit/*.test.ts",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "astro": "7.4.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.10.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@emnapi/runtime": "1.11.3"
+    }
+  }
+}

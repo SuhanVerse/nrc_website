@@ -1,0 +1,79 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { withBase } from '../../components/paths';
+import { siteConfig } from '../../content/site';
+import { club } from '../../content/public';
+
+export function getStaticPaths() {
+  return club.projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+const { project } = Astro.props;
+const url = (path: string) => withBase(path, siteConfig.basePath);
+const srcSet = project.detailAsset
+  ? [480, 800, 1400]
+      .map(
+        (width) =>
+          `${url(`/images/${project.detailAsset}${width === 1400 ? '' : `-${width}`}.webp`)} ${width}w`,
+      )
+      .join(', ')
+  : '';
+---
+
+<SiteLayout
+  title={project.title}
+  description={project.summary}
+  section="projects"
+>
+  <section
+    class="container project-detail-page"
+    aria-labelledby="project-detail-heading"
+  >
+    <p class="eyebrow page-label">Club project</p>
+    <h1 id="project-detail-heading">{project.title}</h1>
+    <p class="page-lead">{project.summary}</p>
+    {project.detailAsset ? (
+      <figure
+        class:list={[
+          'project-detail-media',
+          { 'project-detail-media--contain': project.fit === 'contain' },
+        ]}
+      >
+        <img
+          class="project-detail-photo"
+          src={url(`/images/${project.detailAsset}.webp`)}
+          srcset={srcSet}
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1199px) calc(100vw - 64px), 1328px"
+          width={project.width}
+          height={project.height}
+          decoding="async"
+          fetchpriority="high"
+          alt={project.alt}
+        />
+      </figure>
+    ) : (
+      <section
+        class="events-notice project-photo-notice"
+        aria-labelledby="project-photo-notice-heading"
+      >
+        <h2 id="project-photo-notice-heading">Project photograph pending</h2>
+      </section>
+    )}
+    <div class="page-actions project-detail-actions">
+      <a
+        class="button primary compact"
+        href={project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {project.linkLabel}
+        <span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <a class="button outline compact" href={url('/projects/')}>
+        All projects
+      </a>
+    </div>
+  </section>
+</SiteLayout>

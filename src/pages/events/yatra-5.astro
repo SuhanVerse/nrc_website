@@ -1,0 +1,145 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { withBase } from '../../components/paths';
+import { siteConfig } from '../../content/site';
+import { club } from '../../content/public';
+
+const yatra = club.events.yatra5;
+const url = (path: string) => withBase(path, siteConfig.basePath);
+const srcSet = (name: string) =>
+  [
+    ...(name === 'yatra-participants' || name === 'yatra-turret-booth'
+      ? [800]
+      : [480, 800]),
+    1400,
+  ]
+    .map(
+      (width) =>
+        `${url(`/images/${name}${width === 1400 ? '' : `-${width}`}.webp`)} ${width}w`,
+    )
+    .join(', ');
+const pairs = [0, 2, 4].map((index) => yatra.photos.slice(index, index + 2));
+---
+
+<SiteLayout
+  title="Yatra 5.0"
+  description="NCE Yatra 5.0, 31 July–1 August 2026: project demonstrations, robotics competitions and exhibition photographs."
+  section="events"
+>
+  <section class="yatra5-page container" aria-labelledby="yatra5-title">
+    <p class="label page-label">Club activities</p>
+    <h1 id="yatra5-title">Yatra 5.0.</h1>
+    <p class="page-lead">
+      National College of Engineering’s technical festival.
+    </p>
+    <div class="recap-card">
+      <h2>{yatra.dates}</h2>
+      <p class="recap-counts">{yatra.reported}</p>
+      <p class="small muted">{yatra.attribution}</p>
+      <p>{yatra.activities}</p>
+      <a
+        class="button ghost recap-link"
+        href={yatra.recapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Read the college recap<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </div>
+    <img
+      class="yatra5-detail-photo"
+      src={url('/images/events-yatra-campus.webp')}
+      srcset={srcSet('events-yatra-campus')}
+      sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1199px) calc(100vw - 64px), 1328px"
+      alt="Yatra on the NCE campus"
+      width="1400"
+      height="934"
+      decoding="async"
+    />
+    <h2 class="section-title">At the exhibition.</h2>
+    <div class="yatra-gallery">
+      {pairs.map((pair, pairIndex) => (
+        <div class="photo-pair">
+          {pair.map((photo, index) => {
+            const photoIndex = pairIndex * 2 + index;
+            return (
+              <figure class="gallery-item">
+                <a
+                  href={url(`/images/${photo.name}.webp`)}
+                  data-photo-open={photoIndex}
+                  data-photo-caption={photo.caption}
+                  data-photo-srcset={srcSet(photo.name)}
+                  aria-label={`View photograph ${photoIndex + 1}: ${photo.caption}`}
+                  aria-describedby={`yatra-caption-${photoIndex}`}
+                >
+                  <img
+                    class="gallery-thumb"
+                    src={url(`/images/${photo.name}-800.webp`)}
+                    alt=""
+                    width="800"
+                    height="534"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="button ghost view-photo">
+                    View photograph {photoIndex + 1}
+                  </span>
+                </a>
+                <figcaption id={`yatra-caption-${photoIndex}`}>
+                  {photo.caption}
+                </figcaption>
+              </figure>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+    <div class="hero-actions yatra5-actions">
+      <a class="button primary compact" href={url('/events/')}>
+        Back to events
+      </a>
+      <a
+        class="button outline"
+        href={yatra.recapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View college recap<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </div>
+  </section>
+  <dialog id="photo-viewer" class="photo-viewer" aria-label="Yatra photograph">
+    <div class="viewer-inner">
+      <div>
+        <button type="button" class="button outline" data-viewer-close>
+          Close photo
+        </button>
+      </div>
+      <div class="viewer-frame">
+        <img
+          data-viewer-image
+          alt=""
+          width="1400"
+          height="934"
+          decoding="async"
+        />
+        <p data-viewer-error class="photo-unavailable" hidden>
+          Photo unavailable
+        </p>
+      </div>
+      <p class="viewer-caption" data-viewer-caption></p>
+      <p class="viewer-count" data-viewer-count></p>
+      <div class="viewer-actions">
+        <button type="button" class="button outline" data-viewer-prev>
+          Previous
+        </button>
+        <button type="button" class="button outline" data-viewer-next>
+          Next
+        </button>
+      </div>
+    </div>
+  </dialog>
+  <script>
+    import '../../features/gallery/viewer';
+  </script>
+</SiteLayout>

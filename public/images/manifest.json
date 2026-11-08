@@ -1,0 +1,263 @@
+{
+  "revision": "2026-11-08",
+  "files": [
+    {
+      "path": "/images/club-logo.webp",
+      "sha256": "d05ad5580b6939497e80f4d7d311c41fdd1ed26c7947ef3c73c4536573b65c34",
+      "bytes": 18822,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/prabhat-rawal.webp",
+      "sha256": "8600511543027104a923e014c1138071f460a35411a8dc3a7eec9f3bac79ee33",
+      "bytes": 22684,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/bishal-gyawalli.webp",
+      "sha256": "f0bc6c766b7dec13487cdeb955b0f5b9793a344279fa3a12398674c7ffa255ae",
+      "bytes": 34922,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/sudhikashya.webp",
+      "sha256": "0595039b5ff04b401add2eec837faef3b25229241eee11da93e4ad9d9aa060f4",
+      "bytes": 27538,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/pratham.webp",
+      "sha256": "5b21e79304951f68d82968d1f3c88f2e81e4c9a1dc7cf7e2f47c3fcbd5a54325",
+      "bytes": 13124,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/suhan-khadka.webp",
+      "sha256": "45d45314a51999182f37c0b7ff5e2f33d72f42161438377e203ab4e3f3204b8e",
+      "bytes": 25722,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/arushi-pandey.webp",
+      "sha256": "249917cb2ef155a8a1abd560f5cb5d28df2dece50b887194c1405e6358639ec6",
+      "bytes": 10380,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/shrawan.webp",
+      "sha256": "b0a6a6bf56575db2ea400d56d8ec040ccb7a2ae8b62ec3f037011fe0c9a51fcc",
+      "bytes": 14850,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/rhythm.webp",
+      "sha256": "18f35e25a906cb80b6dd2326038afd2e0d91d1e04a9b8f943054c63b5cf5310f",
+      "bytes": 3760,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/sarad.webp",
+      "sha256": "cde0da5c24863e00d480579b485c0626ee18fdd0f6245cf126e55df81bccf282",
+      "bytes": 16310,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/pranish-maharjan.webp",
+      "sha256": "099706504bbcbda43df2938ab760af59b9bc8a5dc5604726321d760a3b143e6d",
+      "bytes": 7406,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/samarpan-khadka.webp",
+      "sha256": "404c0b24e354912c518a4e412c1161a6390aafe5ff48d406dd838830d578b663",
+      "bytes": 14350,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/rachana-tamrakar.webp",
+      "sha256": "0a01f3674a2bfaf3edaaa00eec2ec378b917ded4efc728eb76b70fa62d5a256a",
+      "bytes": 14476,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/pravin-pandey.webp",
+      "sha256": "13ead7bdb20aad5780844d4c7b9142b5bb48d1f9ebedde3021777bb1b3f14d23",
+      "bytes": 14146,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/projectile-turret.webp",
+      "sha256": "f26723c1341017f81e4803ad2dbe556c8905bc0a875d55639db2aa6ae7fd8db4",
+      "bytes": 65824,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/projectile-turret-480.webp",
+      "sha256": "65ebbb9fa8d4cc1fc79299a01ef50cfacae51f50bc3b976c135cb909c1b26755",
+      "bytes": 17860,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/projectile-turret-800.webp",
+      "sha256": "1ffab955f8affc0ac0f4c1cddc2a88253621c665b3940bc7df8295dd272376a1",
+      "bytes": 33936,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/object-sorting.webp",
+      "sha256": "d0d99e911d7a5e361dbd69157742d47f0ac13f56963d629be062837cad08a586",
+      "bytes": 57198,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/object-sorting-480.webp",
+      "sha256": "59cdc96a2abffb46fecf6a61e602a2c7753e530a166c1b07f280604c2597cf4d",
+      "bytes": 12220,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/object-sorting-800.webp",
+      "sha256": "429fc0dc8d5c39e434fcf416cbf578a9d4f0467de7effe0e6ef4fed020588342",
+      "bytes": 25658,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/workbench.webp",
+      "sha256": "fc2f797a74d2af8840882dd841c8fb80ac1b5e6a5f7aafcf6364d0e1a412cbf5",
+      "bytes": 89818,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/workbench-480.webp",
+      "sha256": "fe38a986b1a76621a17fa320c077ef9497987a38d5bec37822a28e076396011c",
+      "bytes": 22130,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/workbench-800.webp",
+      "sha256": "d28fe71917b81a6670fea145f072fcfbcceb3e926473153775b4f6b6179e38bd",
+      "bytes": 42048,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/events-yatra-campus.webp",
+      "sha256": "70f44a6b9d1124b9f6a4ac4d7c89f543e820bc6856b524c98c8623df8bd58ab0",
+      "bytes": 89528,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/events-yatra-campus-480.webp",
+      "sha256": "1e14ea17668f7459871f2a56c79bb56ecc0ff00785c11f17b7f50388e4c5575d",
+      "bytes": 16938,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/events-yatra-campus-800.webp",
+      "sha256": "99ed18ffee2a4b4ca57ecf9e9f8ab2a330f5b0a05916a60b1e7cfb0f48c779aa",
+      "bytes": 37992,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/yatra-participants.webp",
+      "sha256": "660172e3fac622127b786f0785d354e65a00126b9123b118bf4004d85de0408b",
+      "bytes": 104806,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/yatra-participants-800.webp",
+      "sha256": "511e73b9bfb7e8a5708e4536df04ad0ecf3b92d51b72b0809ab08ea6177145f4",
+      "bytes": 51068,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/yatra-turret-booth.webp",
+      "sha256": "0e1adf704cfbb436c3634ce854e0651ffb9b36c1fd9fc37616e8841eb3ae3cbe",
+      "bytes": 41070,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/yatra-turret-booth-800.webp",
+      "sha256": "6dce31f6b3fc38c36d5193605f73092b6d341012bcc39b107e82091ed2cc1172",
+      "bytes": 19918,
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/fonts/archivo.woff2",
+      "sha256": "e3a28eade21a900c7155a247757f4b2834c07bb7ef07ad7efa55cebaac1e8f5e",
+      "bytes": 90104,
+      "license": "OFL-1.1",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/fonts/source-sans-3.woff2",
+      "sha256": "19143dca075972bc84e3fd9eab7416dd40cc565dccb2435a044bdfabe060c7d5",
+      "bytes": 28872,
+      "license": "OFL-1.1",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/account.svg",
+      "sha256": "5379056dd5d7d3bb99b8ee4f8dcaf9e511d4e2b07ddf2f23d70cb8fa8c62f8a9",
+      "bytes": 1093,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/facebook.svg",
+      "sha256": "b51abd38867badea55ed5377a1d4e220cbbdd58536aadb4accf78ba3f21db79a",
+      "bytes": 1154,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/instagram.svg",
+      "sha256": "16aa7ab58c9ae071fda4abbd9c9ab63f6d10fdc1333aa6913db252849050125b",
+      "bytes": 4502,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/linkedin.svg",
+      "sha256": "8a3bd7496c9b7fc4e0569ec33b14656ceed8597053ad2c94df45b7bc857efa26",
+      "bytes": 1766,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/gmail.svg",
+      "sha256": "da000e026b7911a6a9d08c1a2a0a2fc7264eeb779861fb87157960b54af7ef8c",
+      "bytes": 1216,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/github.svg",
+      "sha256": "067b4355852f80dae69495cb4b569044f0877fe2c2471ce6e60eedba1c953a98",
+      "bytes": 2793,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/arrow-ink.svg",
+      "sha256": "3254065d2d38799a4ae47e0c1dc78d267e37641a7969a62036f6e5bb4ea5d692",
+      "bytes": 362,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/arrow-surface.svg",
+      "sha256": "c9d877a0d3b7196b6b52cb23043501a947b935a3d7bd5dec5dec9e37edb83632",
+      "bytes": 362,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/icons/trophy.svg",
+      "sha256": "b2e07f1a9d6efd7a58eaec77e163c6827fed747f76509765e3e41e2c5ba256f5",
+      "bytes": 653,
+      "license": "See /licenses/SOCIAL-NOTICE.md",
+      "publication": "Authorized by project owner on 2026-11-08"
+    }
+  ],
+  "portraitProcessing": "360x360 WebP quality82 from supplied400px design derivatives; original private files unchanged."
+}

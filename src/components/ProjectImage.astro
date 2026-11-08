@@ -1,0 +1,41 @@
+---
+import { withBase } from './paths';
+import { siteConfig } from '../content/site';
+
+interface Props {
+  project: {
+    title: string;
+    preview?: string | null;
+    image?: string | null;
+    alt: string;
+    fit: string;
+  };
+}
+const { project } = Astro.props;
+const source = project.preview
+  ? `/images/${project.preview.replace(/^\/images\//, '')}`
+  : project.image;
+---
+
+{source ? (
+  <img
+    class:list={[
+      'project-photo',
+      { 'project-photo--contain': project.fit === 'contain' },
+    ]}
+    src={withBase(source, siteConfig.basePath)}
+    alt={project.alt}
+    width="480"
+    height="360"
+    loading="lazy"
+    decoding="async"
+  />
+) : (
+  <div
+    class="project-photo missing-photo"
+    role="img"
+    aria-label={`${project.title} photo not added`}
+  >
+    Photo not added
+  </div>
+)}

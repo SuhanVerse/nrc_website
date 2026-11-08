@@ -1,0 +1,55 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { club } from '../content/public';
+import { url } from '../content/site';
+import { resolveMembershipState } from '../features/membership/state';
+const membership = resolveMembershipState(club.membership);
+---
+
+<SiteLayout title="Contact" section="contact">
+  <section class="container contact-page">
+    <p class="label page-label">Get in touch</p>
+    <h1>Contact the club.</h1>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h2>Email</h2>
+        <a class="contact-email" href={`mailto:${club.club.email}`}>
+          {club.club.email}
+        </a>
+        <h2>Visit</h2>
+        <p>
+          Block B, National College of Engineering
+          <br />
+          Talchikhel, Lalitpur-14, Nepal
+        </p>
+        <a class="arrow-link" href="https://nce.edu.np/">
+          College website <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="contact-card">
+        <h2>Connect</h2>
+        <div class="contact-socials">
+          {club.club.socials.map((s) => (
+            <a class="contact-social-link" href={s.url}>
+              <img
+                src={url(`/icons/${s.label.toLowerCase()}.svg`)}
+                width="44"
+                height="44"
+                alt=""
+              />
+              {s.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div class="events-notice contact-membership-note">
+      <h2>Membership enquiries</h2>
+      <p>Applications are currently {membership.status}.</p>
+      <a class="arrow-link" href={url('/membership/')}>
+        Membership <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</SiteLayout>

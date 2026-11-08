@@ -1,0 +1,51 @@
+---
+import { url } from '../content/site';
+const photos = [
+  { name: 'projectile-turret', caption: 'Projectile Turret at Yatra' },
+  { name: 'object-sorting', caption: 'Object Sorting System demonstration' },
+  { name: 'workbench', caption: 'Project workbench at the exhibition' },
+];
+---
+
+<figure class="gallery" data-gallery>
+  <div class="photo-window">
+    {photos.map((photo, i) => (
+      <img
+        class:list={{ 'photo-active': i === 0 }}
+        src={i === 0 ? url(`/images/${photo.name}-800.webp`) : undefined}
+        srcset={
+          i === 0
+            ? [480, 800, 1400]
+                .map(
+                  (width) =>
+                    `${url(`/images/${photo.name}${width === 1400 ? '' : `-${width}`}.webp`)} ${width}w`,
+                )
+                .join(', ')
+            : undefined
+        }
+        data-src={url(`/images/${photo.name}-800.webp`)}
+        data-srcset={[480, 800, 1400]
+          .map(
+            (width) =>
+              `${url(`/images/${photo.name}${width === 1400 ? '' : `-${width}`}.webp`)} ${width}w`,
+          )
+          .join(', ')}
+        sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 999px) calc(100vw - 64px), 46vw"
+        alt={photo.caption}
+        data-caption={photo.caption}
+        width="1400"
+        height="933"
+        fetchpriority={i === 0 ? 'high' : undefined}
+        decoding="async"
+        aria-hidden={i === 0 ? undefined : 'true'}
+      />
+    ))}
+    <p class="photo-unavailable" data-gallery-error hidden>
+      Photo unavailable
+    </p>
+  </div>
+  <figcaption data-gallery-caption>{photos[0].caption}</figcaption>
+</figure>
+<script>
+  import '../features/gallery/carousel';
+</script>
