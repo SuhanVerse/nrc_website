@@ -17,17 +17,10 @@ if (
 }
 const basePath = import.meta.env.BASE_URL;
 withBase('/', basePath);
-const portal = import.meta.env.PUBLIC_PORTAL_URL?.trim() || null;
-if (portal) {
-  const url = new URL(portal);
-  if (url.protocol !== 'https:' || url.username || url.password)
-    throw new Error('PUBLIC_PORTAL_URL must be an approved HTTPS destination');
-}
-
 export const siteConfig = {
   siteOrigin: origin.origin,
   basePath,
-  portalUrl: portal,
+  mapUrl: 'https://maps.app.goo.gl/DVfdNNojsxiafeM28',
 };
 export const url = (path: string) => withBase(path, basePath);
 export const navigation = [

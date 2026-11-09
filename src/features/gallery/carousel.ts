@@ -1,4 +1,8 @@
-import { automaticPhotos, reducedMotion } from './preferences';
+import {
+  automaticPhotos,
+  reducedMotion,
+  setAutomaticPhotos,
+} from './preferences';
 
 document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
   const images = [
@@ -6,6 +10,10 @@ document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
   ];
   const caption = gallery.querySelector<HTMLElement>('[data-gallery-caption]');
   const error = gallery.querySelector<HTMLElement>('[data-gallery-error]');
+  const toggle = gallery.querySelector<HTMLButtonElement>(
+    '[data-gallery-toggle]',
+  );
+  let enabled = automaticPhotos();
   let current = 0,
     visible = false,
     timer: ReturnType<typeof setTimeout> | undefined;
@@ -15,8 +23,28 @@ document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
     visible &&
     !document.hidden &&
     !reducedMotion.matches &&
-    automaticPhotos() &&
+    enabled &&
     !gallery.contains(document.activeElement);
+  function renderToggle() {
+    if (!toggle) return;
+    toggle.hidden = reducedMotion.matches;
+    toggle.setAttribute(
+      'aria-label',
+      enabled ? 'Pause slideshow' : 'Play slideshow',
+    );
+    toggle
+      .querySelector<HTMLElement>('[data-pause-icon]')
+      ?.toggleAttribute('hidden', !enabled);
+    toggle
+      .querySelector<HTMLElement>('[data-play-icon]')
+      ?.toggleAttribute('hidden', enabled);
+  }
+  toggle?.addEventListener('click', () => {
+    enabled = !enabled;
+    setAutomaticPhotos(enabled);
+    renderToggle();
+    schedule();
+  });
   function schedule() {
     clearTimeout(timer);
     if (allowed() && failed.size < images.length - 1)
@@ -65,12 +93,19 @@ document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
   document.addEventListener('visibilitychange', schedule);
   gallery.addEventListener('focusin', schedule);
   gallery.addEventListener('focusout', () => queueMicrotask(schedule));
-  reducedMotion.addEventListener('change', schedule);
-  addEventListener('photo-preference', schedule);
-  addEventListener('storage', schedule);
+  reducedMotion.addEventListener('change', () => {
+    renderToggle();
+    schedule();
+  });
+  addEventListener('storage', () => {
+    enabled = automaticPhotos();
+    renderToggle();
+    schedule();
+  });
   addEventListener('pagehide', () => {
     clearTimeout(timer);
     observer.disconnect();
   });
   addEventListener('pageshow', () => observer.observe(gallery));
+  renderToggle();
 });

@@ -1,7 +1,7 @@
 # Icon sources and licenses
 
 The club uses four self-hosted social tiles from the user's public GitHub profile
-and one Lucide account icon. Marks belong to their respective owners; these
+and a matching GitHub tile for committee links. Marks belong to their respective owners; these
 links do not imply endorsement. No X account or unrelated profile icons are included.
 
 - Instagram, LinkedIn and Gmail: Skill Icons, exact revision
@@ -14,14 +14,13 @@ links do not imply endorsement. No X account or unrelated profile icons are incl
   rounded-square wrapper retained.
   [Upstream source](https://github.com/devicons/devicon/tree/6a37858047b0e8d9c9c0e68f4a071fc410652e89).
   MIT ©2015 konpa; full notice: [devicon-LICENSE.txt](devicon-LICENSE.txt).
-- Account: Lucide `icons/circle-user-round.svg`, exact revision
+- Utility drawings: Lucide arrows and trophy, exact revision
   `4ac849074f6257718df91f9c5ecfb44eb35ae11d`.
   [Upstream source](https://github.com/lucide-icons/lucide/tree/4ac849074f6257718df91f9c5ecfb44eb35ae11d).
   ISC license and retained inherited portions: [lucide-LICENSE.txt](lucide-LICENSE.txt).
 
 The four social SVG files were retrieved unchanged from `assets/icons/` in
 [SuhanVerse/SuhanVerse at 9734f00](https://github.com/SuhanVerse/SuhanVerse/tree/9734f007adc4a0c58687973931764aff346a7be6).
-The account drawing is used as an SVG file and inline paths in the account link.
 These licenses cover the icon code, not ownership of the brands or a project-wide license.
 
 Committee GitHub tile: Skill Icons `icons/Github-Dark.svg`, exact revision

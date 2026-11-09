@@ -10,11 +10,10 @@ Pages setup and an explicit confirmation when starting the workflow.
 Set public configuration in the shell or CI environment before building.
 `.env.example` lists the available values; none is a credential.
 
-| Setting             | Purpose                                                                                                                                                           |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SITE_ORIGIN`       | HTTPS origin used for canonical URLs and sitemap entries, without a path or credentials.                                                                          |
-| `SITE_BASE`         | `/` for a custom-domain root, `/website/` for the club project site, or `/nrc_website/` for the personal fork project site. Include leading and trailing slashes. |
-| `PUBLIC_PORTAL_URL` | Optional approved HTTPS sign-in destination, only after the separate portal is ready. Leave unset now.                                                            |
+| Setting       | Purpose                                                                                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SITE_ORIGIN` | HTTPS origin used for canonical URLs and sitemap entries, without a path or credentials.                                                                          |
+| `SITE_BASE`   | `/` for a custom-domain root, `/website/` for the club project site, or `/nrc_website/` for the personal fork project site. Include leading and trailing slashes. |
 
 Examples for local verification, without configuring live services:
 
@@ -53,7 +52,7 @@ Follow these steps after the club approves the deployment pull request.
 4. Open **Actions → Publish website → Run workflow** in the club repository.
    Select `main`, enable the publishing confirmation, and start the run.
 5. Check that the build and deployment jobs succeed. Open the URL shown by the
-   deployment job and check Home, a nested project, Team, Membership, photos,
+   deployment job and check Home, Projects, Team, Membership, photos,
    sitemap/canonical URLs, HTTPS and the contact links.
 6. Record the released commit and successful workflow URL. Retain the source
    revision and static artifact for rollback.
@@ -95,11 +94,6 @@ and [response-queue advisory](https://github.com/nodejs/undici/security/advisori
 Keep the dependency review in the release record and verify the first authorized
 publishing run on GitHub's runner.
 
-The account icon currently opens the unavailable portal page. To connect a real
-portal later, review its HTTPS URL and set `PUBLIC_PORTAL_URL` in the public build.
-The portal needs its own deployment and server-enforced access rules; static
-hosting alone cannot authenticate members or store private club data.
-
 ## College-server handover
 
 Provide the source revision, Node/pnpm versions, lockfile and a verified copy of
@@ -119,6 +113,6 @@ website** again with publishing confirmed. The workflow rebuilds the reviewed
 revision with its lockfile and the configured origin/base.
 
 For college hosting, restore the previous artifact built for the same
-origin/base. Smoke-test Home, a nested project, Team, Membership and media after
+origin/base. Smoke-test Home, Projects, Team, Membership and media after
 either recovery path. Manage Google Forms and the separate portal through their
 own release and recovery procedures.

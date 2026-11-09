@@ -28,10 +28,25 @@ const identity = club.club;
         {identity.email}
       </a>
       <p class="address">
-        Block B, National College of Engineering
+        {identity.location}
         <br />
-        Talchikhel, Lalitpur-14, Nepal
+        {identity.address}
       </p>
+      <a class="footer-map" href={siteConfig.mapUrl}>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          aria-hidden="true"
+        >
+          <path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z" />
+          <circle cx="12" cy="10" r="2.5" />
+        </svg>
+        View on map <span aria-hidden="true">↗</span>
+      </a>
     </div>
     <div>
       <h2>Connect</h2>
@@ -65,11 +80,20 @@ const identity = club.club;
           />
         </a>
       </div>
-      <div class="footer-links">
-        <a href="https://nce.edu.np/">College website</a>
-        <a href={siteConfig.portalUrl ?? url('/signin/')}>Member sign-in</a>
-        <a href={url('/motion-settings/')}>Motion settings</a>
-      </div>
+      <a
+        class="college-link"
+        href="https://nce.edu.np/"
+        aria-label="National College of Engineering website"
+      >
+        <img
+          src={url('/images/college-logo.webp')}
+          alt="National College of Engineering"
+          width="240"
+          height="107"
+          loading="lazy"
+        />
+        <span aria-hidden="true">↗</span>
+      </a>
     </div>
   </div>
   <div class="container footer-bottom">

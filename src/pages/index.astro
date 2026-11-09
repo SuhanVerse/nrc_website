@@ -62,15 +62,22 @@ const committee = sortCommittee(club.members);
           <article class="project-row">
             <div class="project-title">
               <p class="label">{project.category}</p>
-              <h3>
-                <a href={url(`/projects/${project.slug}/`)}>{project.title}</a>
-              </h3>
+              <h3>{project.title}</h3>
             </div>
             <div class="project-copy">
               <p>{project.summary}</p>
-              <a class="arrow-link" href={url(`/projects/${project.slug}/`)}>
-                View project<span class="sr-only">: {project.title}</span>
-                <Arrow />
+              <a
+                class="arrow-link"
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {project.linkLabel}
+                <span class="sr-only">
+                  {' '}
+                  for {project.title} (opens in a new tab)
+                </span>
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
             <ProjectImage project={project} />

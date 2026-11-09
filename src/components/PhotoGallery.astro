@@ -45,6 +45,36 @@ const photos = [
     </p>
   </div>
   <figcaption data-gallery-caption>{photos[0].caption}</figcaption>
+  <button
+    type="button"
+    class="gallery-toggle"
+    data-gallery-toggle
+    aria-label="Pause slideshow"
+    hidden
+  >
+    <span data-pause-icon>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M7 5h4v14H7zm6 0h4v14h-4z" />
+      </svg>
+    </span>
+    <span data-play-icon hidden>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="m8 5 11 7-11 7z" />
+      </svg>
+    </span>
+  </button>
 </figure>
 <script>
   import '../features/gallery/carousel';

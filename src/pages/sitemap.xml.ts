@@ -1,12 +1,7 @@
 import { siteConfig, url, navigation } from '../content/site';
-import { club } from '../content/public';
 
 export function GET() {
-  const routes = [
-    ...navigation.map(([, path]) => path),
-    ...club.projects.map((p) => `/projects/${p.slug}/`),
-    '/events/yatra-5/',
-  ];
+  const routes = [...navigation.map(([, path]) => path), '/events/yatra-5/'];
   const entries = routes
     .map(
       (path) =>
