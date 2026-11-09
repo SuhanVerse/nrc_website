@@ -56,5 +56,6 @@ and [media notices](docs/media.md). Source code is licensed under
 [Apache-2.0](LICENSE); photographs, fonts and brand marks have separate terms.
 
 Changes are reviewed by club maintainers through pull requests. See
-[Contributing](CONTRIBUTING.md). The check workflow does not publish the site,
-configure a domain or deploy the portal.
+[Contributing](CONTRIBUTING.md). A club maintainer publishes a reviewed `main`
+revision through the manual **Publish website** workflow after completing the
+[Pages setup](docs/deployment.md#publish-a-reviewed-release).
