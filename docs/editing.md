@@ -20,11 +20,14 @@ the design shows muted, noninteractive logo slots instead of guessed URLs.
 When the roster intentionally changes, update the browser assertions for its
 count, names and confirmed social destinations along with the data.
 
-Projects use one short summary and a real source link. The 3D Printer currently
+Projects use one short summary and a direct repository or video link. The 3D Printer currently
 has no photograph; keep its honest missing-photo state until one is approved.
 Yatra 5.0 figures are attributed to the college recap. Earlier editions link to
 the college archive. Keep `upcomingEvents` empty until an actual event is ready
 to announce.
+
+The footer uses the supplied college logo as its college-website link. The
+location link comes from the college's own [website](https://nce.edu.np/).
 
 ## Membership
 
@@ -68,6 +71,10 @@ stat -c %s public/images/approved-photo.webp
 
 Use only actual approved social destinations. The withdrawn phone number must
 not be restored without a new club decision. See [media notices](media.md).
+
+Home photographs change every six seconds. The small photo-corner control
+pauses or resumes the slideshow and remembers the choice on this browser.
+The device's reduced-motion preference keeps photographs still.
 
 ## Before opening a pull request
 

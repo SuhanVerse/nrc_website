@@ -1,5 +1,5 @@
 {
-  "revision": "2026-11-08",
+  "revision": "2026-11-09",
   "files": [
     {
       "path": "/images/club-logo.webp",
@@ -196,13 +196,6 @@
       "publication": "Authorized by project owner on 2026-11-08"
     },
     {
-      "path": "/icons/account.svg",
-      "sha256": "5379056dd5d7d3bb99b8ee4f8dcaf9e511d4e2b07ddf2f23d70cb8fa8c62f8a9",
-      "bytes": 1093,
-      "license": "See /licenses/SOCIAL-NOTICE.md",
-      "publication": "Authorized by project owner on 2026-11-08"
-    },
-    {
       "path": "/icons/facebook.svg",
       "sha256": "b51abd38867badea55ed5377a1d4e220cbbdd58536aadb4accf78ba3f21db79a",
       "bytes": 1154,
@@ -257,6 +250,76 @@
       "bytes": 653,
       "license": "See /licenses/SOCIAL-NOTICE.md",
       "publication": "Authorized by project owner on 2026-11-08"
+    },
+    {
+      "path": "/images/college-logo.webp",
+      "sha256": "3ce86f7c4b254f7ca95aa7d6f0ed78ab990eda44a04af385bbf78674bb4b1ba0",
+      "bytes": 36174,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "clz_horizontal_logo.png"
+    },
+    {
+      "path": "/images/yatra-nce-robot-480.webp",
+      "sha256": "8dc19764f9820bb8ca3c44126ca0b0be0641f9c487db661aa98c374d2950afe0",
+      "bytes": 14230,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC05718.jpg"
+    },
+    {
+      "path": "/images/yatra-nce-robot-800.webp",
+      "sha256": "7c7dd23cfb556866a3545f08b4348dd41485c26a5bf337953c82b6e0c33f18eb",
+      "bytes": 33730,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC05718.jpg"
+    },
+    {
+      "path": "/images/yatra-nce-robot.webp",
+      "sha256": "6a8fab85c3a1c16f6cc56abf2fb1ae8c8bbacd3235cdd8b3e9a10966ceaa934c",
+      "bytes": 88276,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC05718.jpg"
+    },
+    {
+      "path": "/images/yatra-robo-pop-480.webp",
+      "sha256": "97e9867f80d91669193fc98f55811cc06b992a3e10e9b782a95bb3e2e4ae58d0",
+      "bytes": 29800,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC06090.jpg"
+    },
+    {
+      "path": "/images/yatra-robo-pop-800.webp",
+      "sha256": "d94080184b6dc8a65a1f8d6f01c09ff990241e6245df0d1fa9a97ff16b0199a2",
+      "bytes": 67878,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC06090.jpg"
+    },
+    {
+      "path": "/images/yatra-robo-pop.webp",
+      "sha256": "d21e2a21a803547a3667aac90e650a112ba1a18009bd5d1089f5a1010156b672",
+      "bytes": 168750,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC06090.jpg"
+    },
+    {
+      "path": "/images/yatra-arena-480.webp",
+      "sha256": "61e0c600898b98306aa5d727667b90994257ca890d1ab7a519c8ce72e048240b",
+      "bytes": 50034,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC06269.jpg"
+    },
+    {
+      "path": "/images/yatra-arena-800.webp",
+      "sha256": "e8bc542e5e1c5b47c7df7fc254767c2aaea287c2b9ccab9d90afa0a2319420fa",
+      "bytes": 108950,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC06269.jpg"
+    },
+    {
+      "path": "/images/yatra-arena.webp",
+      "sha256": "589e3385631c843b907aedc4c9375d92a66f19faecd218f6e71c4ee69335620e",
+      "bytes": 258114,
+      "publication": "Supplied media authorized by project owner on 2026-11-09",
+      "source": "DSC06269.jpg"
     }
   ],
   "portraitProcessing": "360x360 WebP quality82 from supplied400px design derivatives; original private files unchanged."

@@ -1,5 +1,5 @@
 ---
-import { navigation, siteConfig, url } from '../content/site';
+import { navigation, url } from '../content/site';
 import Logo from './Logo.astro';
 import Arrow from './Arrow.astro';
 const { section = '' } = Astro.props;
@@ -37,19 +37,6 @@ const { section = '' } = Astro.props;
       >
         Menu
       </button>
-      <div class="account-wrap">
-        <a
-          class="account-link"
-          href={siteConfig.portalUrl ?? url('/signin/')}
-          aria-label="Member login"
-          aria-describedby="account-tip"
-        >
-          <img src={url('/icons/account.svg')} alt="" width="28" height="28" />
-        </a>
-        <span id="account-tip" role="tooltip" class="tooltip">
-          Sign in
-        </span>
-      </div>
     </div>
   </div>
 </header>

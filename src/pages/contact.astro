@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { club } from '../content/public';
-import { url } from '../content/site';
+import { siteConfig, url } from '../content/site';
 import { resolveMembershipState } from '../features/membership/state';
 const membership = resolveMembershipState(club.membership);
 ---
@@ -18,12 +18,12 @@ const membership = resolveMembershipState(club.membership);
         </a>
         <h2>Visit</h2>
         <p>
-          Block B, National College of Engineering
+          {club.club.location}
           <br />
-          Talchikhel, Lalitpur-14, Nepal
+          {club.club.address}
         </p>
-        <a class="arrow-link" href="https://nce.edu.np/">
-          College website <span aria-hidden="true">↗</span>
+        <a class="arrow-link" href={siteConfig.mapUrl}>
+          View on map <span aria-hidden="true">↗</span>
         </a>
       </div>
       <div class="contact-card">

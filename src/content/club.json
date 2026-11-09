@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-08",
+  "asOf": "2026-11-09",
   "club": {
     "name": "NCE Robotics Club",
     "college": "National College of Engineering",
@@ -160,9 +160,6 @@
       "linkLabel": "View repository",
       "category": "Prototype",
       "preview": "object-sorting-480.webp",
-      "detailAsset": "object-sorting",
-      "width": 1400,
-      "height": 934,
       "fit": "contain",
       "alt": "Object Sorting System conveyor prototype with camera, controllers and wiring"
     },
@@ -174,9 +171,6 @@
       "linkLabel": "View project video",
       "category": "Fabrication",
       "preview": null,
-      "detailAsset": null,
-      "width": 0,
-      "height": 0,
       "fit": "cover",
       "alt": ""
     },
@@ -188,9 +182,6 @@
       "linkLabel": "View project video",
       "category": "Robotics",
       "preview": "projectile-turret-480.webp",
-      "detailAsset": "projectile-turret",
-      "width": 1400,
-      "height": 933,
       "fit": "cover",
       "alt": "Projectile Turret project at the exhibition"
     }
@@ -206,32 +197,65 @@
         {
           "name": "projectile-turret",
           "caption": "Projectile Turret close-up",
-          "src": "/images/projectile-turret.webp"
+          "src": "/images/projectile-turret.webp",
+          "width": 1400,
+          "height": 934
         },
         {
           "name": "object-sorting",
           "caption": "Object Sorting System demonstration",
-          "src": "/images/object-sorting.webp"
+          "src": "/images/object-sorting.webp",
+          "width": 1400,
+          "height": 934
         },
         {
           "name": "workbench",
           "caption": "Project workbench at Yatra",
-          "src": "/images/workbench.webp"
+          "src": "/images/workbench.webp",
+          "width": 1400,
+          "height": 934
         },
         {
           "name": "events-yatra-campus",
           "caption": "Yatra on the NCE campus",
-          "src": "/images/events-yatra-campus.webp"
+          "src": "/images/events-yatra-campus.webp",
+          "width": 1400,
+          "height": 934
         },
         {
           "name": "yatra-participants",
           "caption": "Participants at the exhibition",
-          "src": "/images/yatra-participants.webp"
+          "src": "/images/yatra-participants.webp",
+          "width": 1400,
+          "height": 934
         },
         {
           "name": "yatra-turret-booth",
           "caption": "Projectile Turret booth",
-          "src": "/images/yatra-turret-booth.webp"
+          "src": "/images/yatra-turret-booth.webp",
+          "width": 1400,
+          "height": 934
+        },
+        {
+          "name": "yatra-nce-robot",
+          "caption": "NCE robot on the field",
+          "src": "/images/yatra-nce-robot.webp",
+          "width": 1400,
+          "height": 2099
+        },
+        {
+          "name": "yatra-robo-pop",
+          "caption": "Balloon robots in the arena",
+          "src": "/images/yatra-robo-pop.webp",
+          "width": 1400,
+          "height": 2099
+        },
+        {
+          "name": "yatra-arena",
+          "caption": "Robots at the arena edge",
+          "src": "/images/yatra-arena.webp",
+          "width": 1400,
+          "height": 2099
         }
       ]
     },

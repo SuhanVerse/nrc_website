@@ -6,16 +6,11 @@ const routes = [
   ['', 'NCE Robotics Club.'],
   ['about/', 'Robotics, together.'],
   ['projects/', 'Club projects'],
-  ['projects/object-sorting-system/', 'Object Sorting System'],
-  ['projects/3d-printer/', '3D Printer'],
-  ['projects/projectile-turret/', 'Projectile Turret'],
   ['events/', 'Events & Yatra.'],
   ['events/yatra-5/', 'Yatra 5.0.'],
   ['team/', 'Our committee'],
   ['membership/', 'Membership'],
   ['contact/', 'Contact the club.'],
-  ['signin/', 'Member sign-in'],
-  ['motion-settings/', 'Motion settings'],
 ] as const;
 for (const width of [1440, 390]) {
   for (const [path, heading] of routes) {
@@ -40,6 +35,12 @@ for (const width of [1440, 390]) {
       const response = await page.goto(path || './');
       expect(response?.status()).toBe(200);
       await expect(page.locator('h1')).toHaveText(heading);
+      await expect(
+        page.getByRole('link', { name: 'Member login', exact: true }),
+      ).toHaveCount(0);
+      await expect(
+        page.locator('a[href*="/signin/"],a[href*="/motion-settings/"]'),
+      ).toHaveCount(0);
       await page.evaluate(() => document.fonts.ready);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       await page.waitForTimeout(150);
@@ -76,8 +77,8 @@ for (const width of [1440, 390]) {
           'team/',
           'membership/',
           'contact/',
-          'signin/',
           'projects/',
+          'events/yatra-5/',
         ].includes(path)
       ) {
         await page.screenshot({
@@ -118,9 +119,7 @@ test('committee order, portrait frames and confirmed social destinations', async
   );
 });
 
-test('closed enrollment, truthful sign-in and public-only navigation', async ({
-  page,
-}) => {
+test('closed enrollment and public-only navigation', async ({ page }) => {
   await page.goto('membership/');
   await expect(
     page.getByText('Applications are currently closed.'),
@@ -132,18 +131,83 @@ test('closed enrollment, truthful sign-in and public-only navigation', async ({
   await expect(
     page.getByText('Applications are currently closed.'),
   ).toBeVisible();
-  await page.goto('signin/');
-  await expect(
-    page.getByText('The member portal isn’t available yet.'),
-  ).toBeVisible();
   await expect(page.locator('input,form,[data-role]')).toHaveCount(0);
   await expect(
     page.getByRole('link', { name: 'Member login', exact: true }),
-  ).toBeVisible();
+  ).toHaveCount(0);
   const text = await page.locator('body').innerText();
   expect(text).not.toMatch(
-    /\b9[678]\d{8}\b|Continue as|Design preview|Resources|Tools|Learn/,
+    /\b9[678]\d{8}\b|Continue as|Design preview|Resources|Tools|Learn|Member sign-in|Motion settings/,
   );
+});
+
+test('footer shows the college logo, club address and map destination', async ({
+  page,
+}) => {
+  await page.goto('./');
+  const footer = page.locator('.site-footer');
+  const college = footer.getByRole('link', {
+    name: 'National College of Engineering website',
+    exact: true,
+  });
+  await expect(college).toHaveAttribute('href', 'https://nce.edu.np/');
+  await expect(college.locator('img')).toHaveAttribute(
+    'src',
+    /\/images\/college-logo\.webp$/,
+  );
+  await expect(footer.locator('.address')).toContainText(data.club.location);
+  await expect(footer.locator('.address')).toContainText(data.club.address);
+  await expect(
+    footer.getByRole('link', { name: 'View on map' }),
+  ).toHaveAttribute('href', 'https://maps.app.goo.gl/DVfdNNojsxiafeM28');
+  await expect(
+    footer.getByRole('link', { name: 'College website', exact: true }),
+  ).toHaveCount(0);
+});
+
+test('Home and Projects open project repositories or videos directly', async ({
+  page,
+}) => {
+  for (const path of ['./', 'projects/']) {
+    await page.goto(path);
+    const rows = page.locator('.project-row');
+    await expect(rows).toHaveCount(data.projects.length);
+    for (const [index, project] of data.projects.entries()) {
+      const row = rows.nth(index);
+      await expect(row.locator('.project-title a')).toHaveCount(0);
+      const action = row.getByRole('link');
+      await expect(action).toHaveCount(1);
+      await expect(action).toHaveAttribute('href', project.url);
+      await expect(action).toHaveAttribute('target', '_blank');
+      await expect(action).toHaveAttribute('rel', 'noopener noreferrer');
+      await expect(action).toHaveAccessibleName(
+        `${project.linkLabel} for ${project.title} (opens in a new tab)`,
+      );
+    }
+    await expect(
+      page.getByRole('link', { name: /Project details/ }),
+    ).toHaveCount(0);
+  }
+});
+
+test('removed sign-in, settings and project detail routes return the useful 404', async ({
+  page,
+}) => {
+  for (const path of [
+    'signin/',
+    'motion-settings/',
+    ...data.projects.map((project) => `projects/${project.slug}/`),
+  ]) {
+    const response = await page.goto(path);
+    expect(response?.status(), path).toBe(404);
+    await expect(page.locator('h1')).toHaveText('Page not found.');
+    await expect(
+      page.getByRole('link', { name: 'Back to the club', exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: 'Member login', exact: true }),
+    ).toHaveCount(0);
+  }
 });
 
 test('skip link and mobile navigation keyboard focus restoration', async ({
@@ -174,15 +238,16 @@ test('photo viewer wraps, traps focus and restores its opener', async ({
   page,
 }) => {
   await page.goto('events/yatra-5/');
+  await expect(page.locator('[data-photo-open]')).toHaveCount(9);
   const opener = page.locator('[data-photo-open]').first();
   await opener.click();
   const viewer = page.locator('#photo-viewer');
   await expect(viewer).toBeVisible();
-  await expect(viewer.locator('[data-viewer-count]')).toHaveText('1 / 6');
+  await expect(viewer.locator('[data-viewer-count]')).toHaveText('1 / 9');
   await page.keyboard.press('ArrowLeft');
-  await expect(viewer.locator('[data-viewer-count]')).toHaveText('6 / 6');
+  await expect(viewer.locator('[data-viewer-count]')).toHaveText('9 / 9');
   await page.keyboard.press('ArrowRight');
-  await expect(viewer.locator('[data-viewer-count]')).toHaveText('1 / 6');
+  await expect(viewer.locator('[data-viewer-count]')).toHaveText('1 / 9');
   await page.keyboard.press('Shift+Tab');
   await expect(viewer.locator('[data-viewer-next]')).toBeFocused();
   await page.keyboard.press('Escape');
@@ -193,23 +258,39 @@ test('photo viewer wraps, traps focus and restores its opener', async ({
 test('automatic photos rotate, persist preference and obey live reduced motion', async ({
   page,
 }) => {
+  test.setTimeout(60000);
   await page.goto('./');
   const caption = page.locator('[data-gallery-caption]');
+  const toggle = page.locator('[data-gallery-toggle]');
+  await expect(toggle).toHaveAccessibleName('Pause slideshow');
   await expect(caption).toHaveText('Projectile Turret at Yatra');
   await expect(caption).toHaveText('Object Sorting System demonstration', {
     timeout: 10000,
   });
+  await toggle.click();
+  await expect(toggle).toHaveAccessibleName('Play slideshow');
+  expect(
+    await page.evaluate(() => localStorage.getItem('nce:auto-photos')),
+  ).toBe('off');
+  await page.locator('.hero-actions a').first().focus();
+  await page.goto('./');
+  await expect(toggle).toHaveAccessibleName('Play slideshow');
+  await page.waitForTimeout(6500);
+  await expect(caption).toHaveText('Projectile Turret at Yatra');
+  await toggle.click();
+  await expect(toggle).toHaveAccessibleName('Pause slideshow');
+  expect(
+    await page.evaluate(() => localStorage.getItem('nce:auto-photos')),
+  ).toBe('on');
+  await page.locator('.hero-actions a').first().focus();
+  await expect(caption).toHaveText('Object Sorting System demonstration', {
+    timeout: 10000,
+  });
   await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(toggle).toBeHidden();
   const still = await caption.textContent();
   await page.waitForTimeout(6500);
   await expect(caption).toHaveText(still!);
-  await page.goto('motion-settings/');
-  await expect(page.locator('[data-reduced-note]')).toBeVisible();
-  await page.getByRole('button', { name: 'Turn off', exact: true }).click();
-  await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await page.goto('./');
-  await page.waitForTimeout(6500);
-  await expect(caption).toHaveText('Projectile Turret at Yatra');
 });
 
 test('content and navigation remain usable without JavaScript', async ({
@@ -224,6 +305,7 @@ test('content and navigation remain usable without JavaScript', async ({
   await page.goto(base);
   await expect(page.locator('h1')).toHaveText('NCE Robotics Club.');
   await expect(page.locator('.photo-active')).toBeVisible();
+  await expect(page.locator('[data-gallery-toggle]')).toBeHidden();
   await page
     .locator('.no-script-nav')
     .getByRole('link', { name: 'Team' })
@@ -253,14 +335,7 @@ test('reflow, landscape and 200% equivalent layout widths', async ({
 }) => {
   for (const width of [1024, 768, 720, 568, 320]) {
     await page.setViewportSize({ width, height: width === 568 ? 320 : 900 });
-    for (const path of [
-      '',
-      'team/',
-      'projects/',
-      'membership/',
-      'contact/',
-      'signin/',
-    ]) {
+    for (const path of ['', 'team/', 'projects/', 'membership/', 'contact/']) {
       await page.goto(path || './');
       expect(
         await page.evaluate(
@@ -293,6 +368,8 @@ test('sitemap lists canonical public routes and excludes account/review pages', 
   expect(text).toContain(
     `https://nceofficialroboticsclub.github.io${base}team/`,
   );
-  expect(text.match(/<url>/g)).toHaveLength(11);
-  expect(text).not.toMatch(/signin|review|member\/|officer/);
+  expect(text.match(/<url>/g)).toHaveLength(8);
+  expect(text).not.toMatch(
+    /signin|motion-settings|review|member\/|officer|projects\/(object-sorting-system|3d-printer|projectile-turret)/,
+  );
 });

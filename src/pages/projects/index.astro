@@ -24,22 +24,11 @@ const url = (path: string) => withBase(path, siteConfig.basePath);
         <article class="project-row">
           <div class="project-title">
             <p class="label">{project.category}</p>
-            <h2>
-              <a
-                class="project-heading-link"
-                href={url(`/projects/${project.slug}/`)}
-              >
-                {project.title}
-              </a>
-            </h2>
+            <h2>{project.title}</h2>
           </div>
           <div class="project-copy">
             <p>{project.summary}</p>
             <div class="project-links">
-              <a class="arrow-link" href={url(`/projects/${project.slug}/`)}>
-                Project details<span class="sr-only"> for {project.title}</span>
-                <span aria-hidden="true">→</span>
-              </a>
               <a
                 class="arrow-link"
                 href={project.url}

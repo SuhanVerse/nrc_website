@@ -22,9 +22,6 @@ export interface Project {
   linkLabel: string;
   category: string;
   preview: string | null;
-  detailAsset: string | null;
-  width: number;
-  height: number;
   fit: 'contain' | 'cover';
   alt: string;
 }
@@ -33,6 +30,8 @@ export interface GalleryPhoto {
   name: string;
   caption: string;
   src: string;
+  width: number;
+  height: number;
 }
 
 export interface PublicContent {
@@ -212,9 +211,6 @@ export function validatePublicContent(
         'linkLabel',
         'category',
         'preview',
-        'detailAsset',
-        'width',
-        'height',
         'fit',
         'alt',
       ],
@@ -233,27 +229,9 @@ export function validatePublicContent(
           /^[a-z0-9-]+\.webp$/.test(project.preview)),
       'project.preview',
     );
-    ensure(
-      project.detailAsset === null ||
-        (typeof project.detailAsset === 'string' &&
-          /^[a-z0-9-]+$/.test(project.detailAsset)),
-      'project.detailAsset',
-    );
-    ensure(
-      Number.isInteger(project.width) &&
-        Number(project.width) >= 0 &&
-        Number.isInteger(project.height) &&
-        Number(project.height) >= 0,
-      'project dimensions',
-    );
     ensure(typeof project.alt === 'string', 'project.alt');
     if (project.preview !== null)
-      ensure(
-        Number(project.width) > 0 &&
-          Number(project.height) > 0 &&
-          project.alt.trim().length > 0,
-        'project image metadata',
-      );
+      ensure(project.alt.trim().length > 0, 'project image metadata');
   }
   const events = record(content.events, 'events');
   keys(events, ['yatra5', 'editions'], 'events');
@@ -269,10 +247,17 @@ export function validatePublicContent(
   ensure(Array.isArray(yatra.photos), 'events.yatra5.photos');
   for (const item of yatra.photos) {
     const photo = record(item, 'gallery photo');
-    keys(photo, ['name', 'caption', 'src'], 'gallery photo');
+    keys(photo, ['name', 'caption', 'src', 'width', 'height'], 'gallery photo');
     text(photo.name, 'gallery photo name');
     text(photo.caption, 'gallery photo caption');
     image(photo.src, 'gallery photo src');
+    ensure(
+      Number.isInteger(photo.width) &&
+        Number(photo.width) > 0 &&
+        Number.isInteger(photo.height) &&
+        Number(photo.height) > 0,
+      'gallery photo dimensions',
+    );
   }
   ensure(Array.isArray(events.editions), 'events.editions');
   for (const item of events.editions) {

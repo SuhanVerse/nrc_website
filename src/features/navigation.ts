@@ -40,17 +40,6 @@ if (dialog && open && close) {
     if (event.matches && dialog.open) dismiss();
   });
 }
-const account = document.querySelector('.account-wrap');
-account?.addEventListener('keydown', (event) => {
-  if ((event as KeyboardEvent).key === 'Escape')
-    account.classList.add('tip-dismissed');
-});
-account?.addEventListener('focusin', () =>
-  account.classList.remove('tip-dismissed'),
-);
-account?.addEventListener('mouseenter', () =>
-  account.classList.remove('tip-dismissed'),
-);
 document
   .querySelector('.skip-link')
   ?.addEventListener('click', () =>
