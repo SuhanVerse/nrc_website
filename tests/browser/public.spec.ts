@@ -274,6 +274,7 @@ test('skip link and mobile navigation keyboard focus restoration', async ({
 test('photo viewer wraps, traps focus and restores its opener', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('events/yatra-5/');
   await expect(page.locator('[data-photo-open]')).toHaveCount(9);
   const opener = page.locator('[data-photo-open]').first();
@@ -296,7 +297,7 @@ test('photo viewer wraps, traps focus and restores its opener', async ({
   await expect(opener).toBeFocused();
 });
 
-test('Home photos rotate, allow quiet dot selection and obey hover and reduced motion', async ({
+test('Home photos rotate every second, loop, allow quiet dot selection and obey hover and reduced motion', async ({
   page,
 }) => {
   test.setTimeout(60000);
@@ -310,30 +311,37 @@ test('Home photos rotate, allow quiet dot selection and obey hover and reduced m
   await expect(dots.nth(0)).toHaveAttribute('aria-pressed', 'true');
   await expect(caption).toHaveText('Projectile Turret at Yatra');
   await expect(caption).toHaveText('Object Sorting System demonstration', {
-    timeout: 10000,
+    timeout: 2000,
   });
   await expect(dots.nth(1)).toHaveAttribute('aria-pressed', 'true');
+  await expect(caption).toHaveText('Project workbench at the exhibition', {
+    timeout: 2000,
+  });
+  await expect(caption).toHaveText('Projectile Turret at Yatra', {
+    timeout: 2000,
+  });
+  await expect(dots.nth(0)).toHaveAttribute('aria-pressed', 'true');
   await dots.nth(2).click();
   await expect(caption).toHaveText('Project workbench at the exhibition');
   await expect(dots.nth(2)).toHaveAttribute('aria-pressed', 'true');
   await page.locator('.hero-actions a').first().focus();
   await page.mouse.move(0, 0);
-  await page.waitForTimeout(6500);
+  await page.waitForTimeout(2500);
   await expect(caption).toHaveText('Project workbench at the exhibition');
   await page.evaluate(() => localStorage.setItem('nce:auto-photos', 'off'));
   await page.reload();
   await expect(caption).toHaveText('Projectile Turret at Yatra');
   await expect(caption).toHaveText('Object Sorting System demonstration', {
-    timeout: 10000,
+    timeout: 2000,
   });
   await gallery.hover();
   const hovered = await caption.textContent();
-  await page.waitForTimeout(6500);
+  await page.waitForTimeout(2500);
   await expect(caption).toHaveText(hovered!);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.mouse.move(0, 0);
   const still = await caption.textContent();
-  await page.waitForTimeout(6500);
+  await page.waitForTimeout(2500);
   await expect(caption).toHaveText(still!);
   await dots.nth(0).click();
   await expect(caption).toHaveText('Projectile Turret at Yatra');
@@ -362,12 +370,16 @@ test('content and navigation remain usable without JavaScript', async ({
   await context.close();
 });
 
-test('a failed later gallery image preserves the decoded photograph', async ({
+test('a failed later gallery image preserves the decoded photograph until the next usable photo', async ({
   page,
 }) => {
-  await page.route('**/images/object-sorting*.webp', (route) => route.abort());
+  let failedPhotoRequested = false;
+  await page.route('**/images/object-sorting*.webp', async (route) => {
+    await route.abort();
+    failedPhotoRequested = true;
+  });
   await page.goto('./');
-  await page.waitForTimeout(6800);
+  await expect.poll(() => failedPhotoRequested, { timeout: 2000 }).toBe(true);
   await expect(page.locator('[data-gallery-caption]')).toHaveText(
     'Projectile Turret at Yatra',
   );
@@ -376,6 +388,10 @@ test('a failed later gallery image preserves the decoded photograph', async ({
       .locator('.photo-active')
       .evaluate((img: HTMLImageElement) => img.naturalWidth),
   ).toBeGreaterThan(0);
+  await expect(page.locator('[data-gallery-caption]')).toHaveText(
+    'Project workbench at the exhibition',
+    { timeout: 3000 },
+  );
 });
 
 test('reflow, landscape and 200% equivalent layout widths', async ({
@@ -473,6 +489,7 @@ test('public pages omit playback buttons and visible carousel photo counts', asy
 test('event carousel wraps with controls and keyboard and keeps photo names off the page', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('events/yatra-5/');
   const carousel = page.locator('[data-event-carousel]');
   await carousel.scrollIntoViewIfNeeded();
@@ -514,6 +531,7 @@ test('event carousel wraps with controls and keyboard and keeps photo names off 
 test('event carousel accepts phone swipes and retains a usable centered photo', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('events/');
   const carousel = page.locator('[data-event-carousel]');
@@ -562,7 +580,7 @@ test('event carousel accepts phone swipes and retains a usable centered photo', 
   ).toBe(true);
 });
 
-test('event photos advance automatically and hold after navigation, stored preference and reduced motion', async ({
+test('event photos advance every second, loop and hold after navigation, stored preference and reduced motion', async ({
   page,
 }) => {
   test.setTimeout(45000);
@@ -570,21 +588,23 @@ test('event photos advance automatically and hold after navigation, stored prefe
   const carousel = page.locator('[data-event-carousel]');
   await carousel.scrollIntoViewIfNeeded();
   await expect(carousel).toHaveClass(/is-enhanced/);
-  await expect(carousel).toHaveAttribute('data-current', '1', {
-    timeout: 10000,
-  });
+  for (const current of ['1', '2', '3', '4', '5', '6', '7', '8', '0']) {
+    await expect(carousel).toHaveAttribute('data-current', current, {
+      timeout: 2000,
+    });
+  }
   await carousel.locator('[data-event-prev]').click();
-  await expect(carousel).toHaveAttribute('data-current', '0');
+  await expect(carousel).toHaveAttribute('data-current', '8');
   await page.mouse.move(0, 0);
   await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
-  await page.waitForTimeout(6500);
-  await expect(carousel).toHaveAttribute('data-current', '0');
+  await page.waitForTimeout(2500);
+  await expect(carousel).toHaveAttribute('data-current', '8');
 
   await page.evaluate(() => localStorage.setItem('nce:auto-photos', 'off'));
   await page.reload();
   await carousel.scrollIntoViewIfNeeded();
   await expect(carousel).toHaveClass(/is-enhanced/);
-  await page.waitForTimeout(6500);
+  await page.waitForTimeout(2500);
   await expect(carousel).toHaveAttribute('data-current', '0');
 
   await page.evaluate(() => localStorage.removeItem('nce:auto-photos'));
@@ -592,7 +612,7 @@ test('event photos advance automatically and hold after navigation, stored prefe
   await page.reload();
   await carousel.scrollIntoViewIfNeeded();
   await expect(carousel).toHaveClass(/is-enhanced/);
-  await page.waitForTimeout(6500);
+  await page.waitForTimeout(2500);
   await expect(carousel).toHaveAttribute('data-current', '0');
   await carousel.locator('[data-event-next]').click();
   await expect(carousel).toHaveAttribute('data-current', '1');
@@ -627,6 +647,7 @@ test('event photos remain linked and browsable without JavaScript', async ({
 test('a failed event photo is skipped while the last decoded photo remains usable', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.route('**/images/object-sorting*.webp', (route) => route.abort());
   await page.goto('events/');
   const carousel = page.locator('[data-event-carousel]');
@@ -691,6 +712,7 @@ async function releaseSortingPhotoDecode(page: Page) {
 test('pending event-photo decode preserves focus after the visitor leaves the carousel', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('events/yatra-5/');
   const carousel = page.locator('[data-event-carousel]');
@@ -720,6 +742,7 @@ test('pending event-photo decode preserves focus after the visitor leaves the ca
 test('pending event-photo decode leaves the opened viewer and its focus return intact', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('events/yatra-5/');
   const carousel = page.locator('[data-event-carousel]');

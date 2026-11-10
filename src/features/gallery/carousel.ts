@@ -31,7 +31,7 @@ document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
   function schedule() {
     clearTimeout(timer);
     if (allowed() && failed.size < images.length - 1)
-      timer = setTimeout(advance, 6000);
+      timer = setTimeout(advance, 1000);
   }
 
   async function showPhoto(next: number, manual = false) {
