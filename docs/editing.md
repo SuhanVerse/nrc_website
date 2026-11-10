@@ -1,7 +1,7 @@
 # Editing the website
 
 Make changes on a feature branch in your fork and open a pull request to
-`nceofficialroboticsclub/website:main`. Club maintainers review public content
+`nceroboticsclub/nceroboticsclub.github.io:main`. Club maintainers review public content
 and media before merging. The current source is not a live content database;
 changes appear on a hosted site only after its publishing workflow rebuilds.
 
@@ -26,8 +26,9 @@ Yatra 5.0 figures are attributed to the college recap. Earlier editions link to
 the college archive. Keep `upcomingEvents` empty until an actual event is ready
 to announce.
 
-The footer uses the supplied college logo as its college-website link. The
-location link comes from the college's own [website](https://nce.edu.np/).
+The footer uses the supplied college logo as its college-website link. The footer's rounded map embeds the location used on the college's own
+[website](https://nce.edu.np/). It loads Google Maps when the footer approaches
+view and makes requests to Google services.
 
 ## Membership
 
@@ -72,9 +73,15 @@ stat -c %s public/images/approved-photo.webp
 Use only actual approved social destinations. The withdrawn phone number must
 not be restored without a new club decision. See [media notices](media.md).
 
-Home photographs change every six seconds. The small photo-corner control
-pauses or resumes the slideshow and remembers the choice on this browser.
-The device's reduced-motion preference keeps photographs still.
+Home photographs advance every six seconds. Selecting a dot holds that photo
+until reload. Hover and keyboard focus suspend rotation. Reduced motion keeps
+the photos still while the dots remain usable.
+
+Event collections use a layered photo carousel with arrow and swipe navigation.
+Its small playback control pauses or resumes automatic changes. Individual
+photo captions remain in image alternatives, with no visible names below the
+cards. Opening a photo on the Yatra detail page shows the full image. Without
+JavaScript, the collection remains a scrollable row of image links.
 
 ## Before opening a pull request
 

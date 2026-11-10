@@ -1,7 +1,7 @@
 import { withBase } from '../components/paths';
 
 const origin = new URL(
-  import.meta.env.SITE_ORIGIN || 'https://nceofficialroboticsclub.github.io',
+  import.meta.env.SITE_ORIGIN || 'https://nceroboticsclub.github.io',
 );
 if (
   origin.protocol !== 'https:' ||

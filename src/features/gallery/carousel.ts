@@ -1,8 +1,4 @@
-import {
-  automaticPhotos,
-  reducedMotion,
-  setAutomaticPhotos,
-} from './preferences';
+import { reducedMotion } from './preferences';
 
 document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
   const images = [
@@ -10,62 +6,46 @@ document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
   ];
   const caption = gallery.querySelector<HTMLElement>('[data-gallery-caption]');
   const error = gallery.querySelector<HTMLElement>('[data-gallery-error]');
-  const toggle = gallery.querySelector<HTMLButtonElement>(
-    '[data-gallery-toggle]',
+  const status = gallery.querySelector<HTMLElement>('[data-gallery-status]');
+  const navigation = gallery.querySelector<HTMLElement>(
+    '[data-gallery-navigation]',
   );
-  let enabled = automaticPhotos();
-  let current = 0,
-    visible = false,
-    timer: ReturnType<typeof setTimeout> | undefined;
-  let busy = false;
+  const buttons = [
+    ...gallery.querySelectorAll<HTMLButtonElement>('[data-gallery-select]'),
+  ];
+  let current = 0;
+  let visible = false;
+  let hovered = false;
+  let held = false;
+  let requestSequence = 0;
+  let timer: ReturnType<typeof setTimeout> | undefined;
   const failed = new Set<number>();
   const allowed = () =>
     visible &&
     !document.hidden &&
     !reducedMotion.matches &&
-    enabled &&
+    !held &&
+    !hovered &&
     !gallery.contains(document.activeElement);
-  function renderToggle() {
-    if (!toggle) return;
-    toggle.hidden = reducedMotion.matches;
-    toggle.setAttribute(
-      'aria-label',
-      enabled ? 'Pause slideshow' : 'Play slideshow',
-    );
-    toggle
-      .querySelector<HTMLElement>('[data-pause-icon]')
-      ?.toggleAttribute('hidden', !enabled);
-    toggle
-      .querySelector<HTMLElement>('[data-play-icon]')
-      ?.toggleAttribute('hidden', enabled);
-  }
-  toggle?.addEventListener('click', () => {
-    enabled = !enabled;
-    setAutomaticPhotos(enabled);
-    renderToggle();
-    schedule();
-  });
+
   function schedule() {
     clearTimeout(timer);
     if (allowed() && failed.size < images.length - 1)
       timer = setTimeout(advance, 6000);
   }
-  async function advance() {
-    if (!allowed() || busy) return;
-    busy = true;
-    let next = (current + 1) % images.length;
-    while (failed.has(next) && next !== current)
-      next = (next + 1) % images.length;
+
+  async function showPhoto(next: number, manual = false) {
+    clearTimeout(timer);
+    const request = ++requestSequence;
+    if (manual) held = true;
     const image = images[next];
-    if (!image) {
-      busy = false;
-      return;
-    }
+    if (!image || next === current) return;
     image.srcset = image.dataset.srcset ?? '';
     image.src = image.dataset.src ?? '';
     try {
       await image.decode();
-      if (allowed()) {
+      if (request !== requestSequence) return;
+      if (manual || allowed()) {
         images[current].classList.remove('photo-active');
         images[current].setAttribute('aria-hidden', 'true');
         image.classList.add('photo-active');
@@ -73,13 +53,30 @@ document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
         current = next;
         if (caption) caption.textContent = image.dataset.caption ?? '';
         if (error) error.hidden = true;
+        if (status) status.textContent = '';
+        buttons.forEach((button, index) =>
+          button.setAttribute('aria-pressed', String(index === current)),
+        );
       }
     } catch {
       failed.add(next);
+      if (manual && request === requestSequence && status)
+        status.textContent = 'Photo unavailable. Choose another photo.';
     }
-    busy = false;
-    schedule();
+    if (request === requestSequence) schedule();
   }
+
+  function advance() {
+    if (!allowed()) return;
+    let next = (current + 1) % images.length;
+    while (failed.has(next) && next !== current)
+      next = (next + 1) % images.length;
+    void showPhoto(next);
+  }
+
+  buttons.forEach((button, index) =>
+    button.addEventListener('click', () => void showPhoto(index, true)),
+  );
   images[0]?.addEventListener('error', () => {
     if (error) error.hidden = false;
   });
@@ -91,21 +88,23 @@ document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
   });
   observer.observe(gallery);
   document.addEventListener('visibilitychange', schedule);
+  gallery.addEventListener('pointerenter', (event) => {
+    if (event.pointerType !== 'mouse') return;
+    hovered = true;
+    schedule();
+  });
+  gallery.addEventListener('pointerleave', () => {
+    hovered = false;
+    schedule();
+  });
   gallery.addEventListener('focusin', schedule);
   gallery.addEventListener('focusout', () => queueMicrotask(schedule));
-  reducedMotion.addEventListener('change', () => {
-    renderToggle();
-    schedule();
-  });
-  addEventListener('storage', () => {
-    enabled = automaticPhotos();
-    renderToggle();
-    schedule();
-  });
+  reducedMotion.addEventListener('change', schedule);
   addEventListener('pagehide', () => {
     clearTimeout(timer);
+    requestSequence++;
     observer.disconnect();
   });
   addEventListener('pageshow', () => observer.observe(gallery));
-  renderToggle();
+  if (navigation) navigation.hidden = false;
 });

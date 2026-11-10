@@ -19,7 +19,7 @@ jobs:
     env:
       CI: 'true'
       COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
-      SITE_ORIGIN: https://nceofficialroboticsclub.github.io
+      SITE_ORIGIN: https://nceroboticsclub.github.io
       SITE_BASE: ${{ matrix.base }}
       ASTRO_TELEMETRY_DISABLED: '1'
     steps:

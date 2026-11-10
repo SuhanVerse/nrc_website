@@ -10,16 +10,16 @@ Pages setup and an explicit confirmation when starting the workflow.
 Set public configuration in the shell or CI environment before building.
 `.env.example` lists the available values; none is a credential.
 
-| Setting       | Purpose                                                                                                                                                           |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SITE_ORIGIN` | HTTPS origin used for canonical URLs and sitemap entries, without a path or credentials.                                                                          |
-| `SITE_BASE`   | `/` for a custom-domain root, `/website/` for the club project site, or `/nrc_website/` for the personal fork project site. Include leading and trailing slashes. |
+| Setting       | Purpose                                                                                                                                                          |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SITE_ORIGIN` | HTTPS origin used for canonical URLs and sitemap entries, without a path or credentials.                                                                         |
+| `SITE_BASE`   | `/` for the club account site or a custom-domain root. A project site uses its repository prefix, such as `/nrc_website/`. Include leading and trailing slashes. |
 
 Examples for local verification, without configuring live services:
 
 ```sh
-SITE_ORIGIN=https://nceofficialroboticsclub.github.io SITE_BASE=/website/ corepack pnpm build
-SITE_BASE=/website/ corepack pnpm test:browser
+SITE_ORIGIN=https://nceroboticsclub.github.io SITE_BASE=/ corepack pnpm build
+SITE_BASE=/ corepack pnpm test:browser
 ```
 
 For a root-domain build:
@@ -35,11 +35,14 @@ serves the current artifact locally; use the printed address and configured base
 
 ## Publish a reviewed release
 
-The initial destination is `https://nceofficialroboticsclub.github.io/website/`.
-The workflow sets `SITE_ORIGIN=https://nceofficialroboticsclub.github.io` and
-`SITE_BASE=/website/` explicitly. It uses the pinned Node/pnpm versions, checks
+The initial destination is `https://nceroboticsclub.github.io/`.
+The workflow sets `SITE_ORIGIN=https://nceroboticsclub.github.io` and
+`SITE_BASE=/` explicitly. It uses the pinned Node/pnpm versions, checks
 formatting, types, content and unit rules, then builds and tests the static site
 before uploading `dist/` as the Pages artifact.
+
+Page styles are included in the generated HTML to avoid extra render-blocking
+stylesheet requests. Photos, fonts and scripts remain separate static assets.
 
 Follow these steps after the club approves the deployment pull request.
 
@@ -58,7 +61,7 @@ Follow these steps after the club approves the deployment pull request.
    revision and static artifact for rollback.
 
 Publishing confirmation defaults to off. The workflow accepts releases only
-from `nceofficialroboticsclub/website` on `main`. Pull requests continue through
+from `nceroboticsclub/nceroboticsclub.github.io` on `main`. Pull requests continue through
 the separate Website checks workflow. Contributors submit changes from their
 forks for club review, followed by a manual release of the merged revision.
 
