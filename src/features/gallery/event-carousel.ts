@@ -1,8 +1,4 @@
-import {
-  automaticPhotos,
-  reducedMotion,
-  setAutomaticPhotos,
-} from './preferences';
+import { automaticPhotos, reducedMotion } from './preferences';
 
 document
   .querySelectorAll<HTMLElement>('[data-event-carousel]')
@@ -15,10 +11,6 @@ document
       link.querySelector<HTMLImageElement>('img')!,
     );
     const controls = root.querySelector<HTMLElement>('[data-event-controls]')!;
-    const toggle = root.querySelector<HTMLButtonElement>(
-      '[data-event-toggle]',
-    )!;
-    const count = root.querySelector<HTMLElement>('[data-event-count]')!;
     const announcement = root.querySelector<HTMLElement>(
       '[data-event-announcement]',
     )!;
@@ -55,18 +47,6 @@ document
         links[index].setAttribute('aria-current', String(index === current));
         card.setAttribute('aria-hidden', String(index !== current));
       });
-      count.textContent = `${current + 1} / ${cards.length}`;
-      toggle.hidden = reducedMotion.matches || cards.length < 2;
-      toggle.setAttribute(
-        'aria-label',
-        enabled ? 'Pause event photos' : 'Play event photos',
-      );
-      toggle
-        .querySelector('[data-event-pause]')
-        ?.toggleAttribute('hidden', !enabled);
-      toggle
-        .querySelector('[data-event-play]')
-        ?.toggleAttribute('hidden', enabled);
     }
     function schedule() {
       clearTimeout(timer);
@@ -136,12 +116,6 @@ document
     root
       .querySelector('[data-event-next]')
       ?.addEventListener('click', () => void move(1, true));
-    toggle.addEventListener('click', () => {
-      enabled = !enabled;
-      setAutomaticPhotos(enabled);
-      render();
-      schedule();
-    });
     root.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();

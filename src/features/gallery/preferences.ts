@@ -7,10 +7,3 @@ export function automaticPhotos(): boolean {
   }
 }
 export const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-export function setAutomaticPhotos(enabled: boolean) {
-  try {
-    localStorage.setItem(preferenceKey, enabled ? 'on' : 'off');
-  } catch {
-    // The carousel keeps the current choice when storage is unavailable.
-  }
-}

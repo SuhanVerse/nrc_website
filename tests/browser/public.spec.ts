@@ -280,6 +280,10 @@ test('photo viewer wraps, traps focus and restores its opener', async ({
   await opener.click();
   const viewer = page.locator('#photo-viewer');
   await expect(viewer).toBeVisible();
+  await expect(viewer.locator('[data-viewer-count]')).toHaveClass(/sr-only/);
+  const countBox = await viewer.locator('[data-viewer-count]').boundingBox();
+  expect(countBox!.width).toBeLessThanOrEqual(1);
+  expect(countBox!.height).toBeLessThanOrEqual(1);
   await expect(viewer.locator('[data-viewer-count]')).toHaveText('1 / 9');
   await page.keyboard.press('ArrowLeft');
   await expect(viewer.locator('[data-viewer-count]')).toHaveText('9 / 9');
@@ -450,6 +454,22 @@ test('past editions are compact collections with specific See more destinations'
   await expect(page.getByRole('link', { name: /View archive/ })).toHaveCount(0);
 });
 
+test('public pages omit playback buttons and visible carousel photo counts', async ({
+  page,
+}) => {
+  for (const [path] of routes) {
+    await page.goto(path || './');
+    await expect(
+      page.getByRole('button', { name: /^(pause|play)\b/i }),
+    ).toHaveCount(0);
+    await expect(
+      page.locator(
+        '[data-event-toggle], [data-gallery-toggle], [data-event-count]',
+      ),
+    ).toHaveCount(0);
+  }
+});
+
 test('event carousel wraps with controls and keyboard and keeps photo names off the page', async ({
   page,
 }) => {
@@ -459,7 +479,7 @@ test('event carousel wraps with controls and keyboard and keeps photo names off 
   await expect(carousel).toHaveClass(/is-enhanced/);
   await expect(carousel.locator('[data-event-photo]')).toHaveCount(9);
   await expect(carousel).toHaveAttribute('data-current', '0');
-  await expect(carousel.locator('[data-event-count]')).toHaveText('1 / 9');
+  await expect(carousel.locator('[data-event-count]')).toHaveCount(0);
   await expect(carousel.locator('figcaption')).toHaveCount(0);
   for (const photo of data.events.yatra5.photos) {
     await expect(
@@ -474,14 +494,11 @@ test('event carousel wraps with controls and keyboard and keeps photo names off 
   await expect(carousel).toHaveAttribute('data-current', '0');
   await previous.click();
   await expect(carousel).toHaveAttribute('data-current', '8');
-  await expect(carousel.locator('[data-event-count]')).toHaveText('9 / 9');
   await page.keyboard.press('ArrowRight');
   await expect(carousel).toHaveAttribute('data-current', '0');
   await page.keyboard.press('ArrowLeft');
   await expect(carousel).toHaveAttribute('data-current', '8');
-  await expect(carousel.locator('[data-event-toggle]')).toHaveAccessibleName(
-    'Play event photos',
-  );
+  await expect(carousel.locator('[data-event-toggle]')).toHaveCount(0);
   await page.keyboard.press('ArrowRight');
   const current = carousel.locator('[data-event-photo][aria-current="true"]');
   await expect(current).toHaveAttribute('tabindex', '0');
@@ -545,37 +562,40 @@ test('event carousel accepts phone swipes and retains a usable centered photo', 
   ).toBe(true);
 });
 
-test('event photos advance automatically and pause for user preference and reduced motion', async ({
+test('event photos advance automatically and hold after navigation, stored preference and reduced motion', async ({
   page,
 }) => {
   test.setTimeout(45000);
   await page.goto('events/');
   const carousel = page.locator('[data-event-carousel]');
   await carousel.scrollIntoViewIfNeeded();
-  const toggle = carousel.locator('[data-event-toggle]');
-  await expect(toggle).toHaveAccessibleName('Pause event photos');
+  await expect(carousel).toHaveClass(/is-enhanced/);
   await expect(carousel).toHaveAttribute('data-current', '1', {
     timeout: 10000,
   });
-  await toggle.click();
-  await expect(toggle).toHaveAccessibleName('Play event photos');
-  expect(
-    await page.evaluate(() => localStorage.getItem('nce:auto-photos')),
-  ).toBe('off');
-  await page.reload();
-  await carousel.scrollIntoViewIfNeeded();
-  await expect(toggle).toHaveAccessibleName('Play event photos');
+  await carousel.locator('[data-event-prev]').click();
+  await expect(carousel).toHaveAttribute('data-current', '0');
+  await page.mouse.move(0, 0);
+  await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
   await page.waitForTimeout(6500);
   await expect(carousel).toHaveAttribute('data-current', '0');
-  await toggle.click();
-  await expect(toggle).toHaveAccessibleName('Pause event photos');
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(toggle).toBeHidden();
-  const still = await carousel.getAttribute('data-current');
+
+  await page.evaluate(() => localStorage.setItem('nce:auto-photos', 'off'));
+  await page.reload();
+  await carousel.scrollIntoViewIfNeeded();
+  await expect(carousel).toHaveClass(/is-enhanced/);
   await page.waitForTimeout(6500);
-  await expect(carousel).toHaveAttribute('data-current', still!);
+  await expect(carousel).toHaveAttribute('data-current', '0');
+
+  await page.evaluate(() => localStorage.removeItem('nce:auto-photos'));
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  await carousel.scrollIntoViewIfNeeded();
+  await expect(carousel).toHaveClass(/is-enhanced/);
+  await page.waitForTimeout(6500);
+  await expect(carousel).toHaveAttribute('data-current', '0');
   await carousel.locator('[data-event-next]').click();
-  await expect(carousel).not.toHaveAttribute('data-current', still!);
+  await expect(carousel).toHaveAttribute('data-current', '1');
 });
 
 test('event photos remain linked and browsable without JavaScript', async ({
