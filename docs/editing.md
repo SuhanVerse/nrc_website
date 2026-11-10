@@ -73,12 +73,12 @@ stat -c %s public/images/approved-photo.webp
 Use only actual approved social destinations. The withdrawn phone number must
 not be restored without a new club decision. See [media notices](media.md).
 
-Home photographs advance every six seconds. Selecting a dot holds that photo
+Home photographs advance every second. Selecting a dot holds that photo
 until reload. Hover and keyboard focus suspend rotation. Reduced motion keeps
 the photos still while the dots remain usable.
 
 Event collections use a layered photo carousel with arrow and swipe navigation.
-Photos advance every six seconds. Using an arrow or swiping holds the selected
+Photos advance every second. Using an arrow or swiping holds the selected
 photo until reload. Hover, keyboard focus and reduced motion suspend rotation.
 Saved automatic-photo preferences are respected. Controls show previous and next
 arrows, with image descriptions and manual position announcements available to

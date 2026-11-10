@@ -60,7 +60,7 @@ document
         !document.querySelector('dialog[open]') &&
         failed.size < cards.length - 1
       ) {
-        timer = setTimeout(() => void move(1), 6000);
+        timer = setTimeout(() => void move(1), 1000);
       }
     }
     async function show(index: number, manual: boolean) {
