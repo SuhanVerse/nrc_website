@@ -82,14 +82,9 @@
 .event-controls {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
   padding-inline: 16px;
-}
-.event-count {
-  margin-right: auto;
-  color: var(--muted);
-  font-size: 14px;
-  font-variant-numeric: tabular-nums;
 }
 .event-controls button {
   display: grid;

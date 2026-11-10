@@ -78,10 +78,12 @@ until reload. Hover and keyboard focus suspend rotation. Reduced motion keeps
 the photos still while the dots remain usable.
 
 Event collections use a layered photo carousel with arrow and swipe navigation.
-Its small playback control pauses or resumes automatic changes. Individual
-photo captions remain in image alternatives, with no visible names below the
-cards. Opening a photo on the Yatra detail page shows the full image. Without
-JavaScript, the collection remains a scrollable row of image links.
+Photos advance every six seconds. Using an arrow or swiping holds the selected
+photo until reload. Hover, keyboard focus and reduced motion suspend rotation.
+Saved automatic-photo preferences are respected. Controls show previous and next
+arrows, with image descriptions and manual position announcements available to
+screen readers. Opening a photo on the Yatra detail page shows the full image.
+Without JavaScript, the collection remains a scrollable row of image links.
 
 ## Before opening a pull request
 

@@ -1217,11 +1217,6 @@ figcaption {
   font-size: 16px;
   line-height: 24px;
 }
-.viewer-count {
-  font-size: 14px;
-  line-height: 20px;
-  font-variant-numeric: tabular-nums;
-}
 .viewer-actions {
   display: flex;
   flex-wrap: wrap;
