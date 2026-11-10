@@ -1,0 +1,114 @@
+---
+import type { GalleryPhoto } from '../content/public';
+import { url } from '../content/site';
+import '../styles/event-carousel.css';
+
+interface Props {
+  id: string;
+  photos: GalleryPhoto[];
+  label: string;
+  compact?: boolean;
+  viewer?: boolean;
+  destination?: string;
+  priority?: boolean;
+}
+const {
+  id,
+  photos,
+  label,
+  compact = false,
+  viewer = false,
+  destination,
+  priority = false,
+} = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['event-carousel', { 'event-carousel--compact': compact }]}
+  data-event-carousel
+  aria-label={label}
+  aria-roledescription="carousel"
+>
+  <div class="event-stage">
+    <ul class="event-photos">
+      {photos.map((photo, i) => (
+        <li class="event-card" data-event-card>
+          <a
+            href={destination ? url(destination) : url(photo.src)}
+            data-event-photo={i}
+            data-photo-open={viewer ? i : undefined}
+            data-photo-caption={photo.caption}
+            aria-label={
+              destination
+                ? `Explore Yatra 5.0, photo ${i + 1}`
+                : `Open event photo ${i + 1} of ${photos.length}`
+            }
+          >
+            <img
+              src={url(`/images/${photo.name}-800.webp`)}
+              srcset={`${url(`/images/${photo.name}-800.webp`)} 800w, ${url(photo.src)} 1400w`}
+              sizes={
+                compact
+                  ? '(max-width: 639px) 75vw, 390px'
+                  : '(max-width: 639px) 75vw, 470px'
+              }
+              alt={photo.caption}
+              width={photo.width}
+              height={photo.height}
+              loading={priority && i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={priority && i === 0 ? 'high' : undefined}
+              decoding="async"
+            />
+            <span class="event-image-error" hidden>
+              Photo unavailable
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="event-controls" data-event-controls hidden>
+    <span class="event-count" data-event-count aria-live="off">
+      1 / {photos.length}
+    </span>
+    <button type="button" data-event-toggle aria-label="Pause event photos">
+      <span data-event-pause aria-hidden="true">
+        Ⅱ
+      </span>
+      <span data-event-play aria-hidden="true" hidden>
+        ▶
+      </span>
+    </button>
+    <button type="button" data-event-prev aria-label="Previous event photo">
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        aria-hidden="true"
+      >
+        <path d="m14 6-6 6 6 6" />
+      </svg>
+    </button>
+    <button type="button" data-event-next aria-label="Next event photo">
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        aria-hidden="true"
+      >
+        <path d="m10 6 6 6-6 6" />
+      </svg>
+    </button>
+    <span class="sr-only" data-event-announcement aria-live="polite"></span>
+  </div>
+</section>
+<script>
+  import '../features/gallery/event-carousel';
+</script>

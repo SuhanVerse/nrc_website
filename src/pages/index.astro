@@ -1,6 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
+import EventCarousel from '../components/EventCarousel.astro';
 import ProjectImage from '../components/ProjectImage.astro';
 import Arrow from '../components/Arrow.astro';
 import { club } from '../content/public';
@@ -88,13 +89,12 @@ const committee = sortCommittee(club.members);
   </section>
   <section class="band yatra-band">
     <div class="container yatra-grid">
-      <img
-        class="yatra-photo"
-        src={url('/images/events-yatra-campus-800.webp')}
-        alt="National College of Engineering during Yatra 5.0"
-        width="800"
-        height="534"
-        loading="lazy"
+      <EventCarousel
+        id="home-yatra-photos"
+        label="Yatra 5.0 photographs"
+        photos={club.events.yatra5.photos.slice(0, 3)}
+        compact
+        destination="/events/yatra-5/"
       />
       <div class="yatra-copy">
         <p class="label">31 July–1 August 2026</p>

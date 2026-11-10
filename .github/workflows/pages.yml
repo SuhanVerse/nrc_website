@@ -19,15 +19,15 @@ concurrency:
 jobs:
   build:
     if: >-
-      ${{ github.repository == 'nceofficialroboticsclub/website' &&
+      ${{ github.repository == 'nceroboticsclub/nceroboticsclub.github.io' &&
           github.ref == 'refs/heads/main' && inputs.publish }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
       CI: 'true'
       COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
-      SITE_ORIGIN: https://nceofficialroboticsclub.github.io
-      SITE_BASE: /website/
+      SITE_ORIGIN: https://nceroboticsclub.github.io
+      SITE_BASE: /
       ASTRO_TELEMETRY_DISABLED: '1'
     steps:
       - name: Check out reviewed source

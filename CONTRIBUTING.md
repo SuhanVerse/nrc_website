@@ -1,10 +1,10 @@
 # Contributing
 
-1. Fork `nceofficialroboticsclub/website` into your own account.
+1. Fork `nceroboticsclub/nceroboticsclub.github.io` into your own account.
 2. Sync your fork, then create a branch for one change.
 3. Make and test the change locally. Include desktop and phone screenshots for
    visible interface changes.
-4. Open a pull request targeting `nceofficialroboticsclub/website:main`.
+4. Open a pull request targeting `nceroboticsclub/nceroboticsclub.github.io:main`.
 5. Address review comments. A designated club maintainer approves and merges.
 
 Use issues for bug reports and proposals; pull requests contain code changes.

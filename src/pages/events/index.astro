@@ -1,17 +1,10 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { withBase } from '../../components/paths';
-import { siteConfig } from '../../content/site';
+import { url } from '../../content/site';
 import { club } from '../../content/public';
 import UpcomingEvents from '../../components/UpcomingEvents.astro';
-
-const url = (path: string) => withBase(path, siteConfig.basePath);
-const campusSrcSet = [480, 800, 1400]
-  .map(
-    (width) =>
-      `${url(`/images/events-yatra-campus${width === 1400 ? '' : `-${width}`}.webp`)} ${width}w`,
-  )
-  .join(', ');
+import EventCarousel from '../../components/EventCarousel.astro';
+import '../../styles/events.css';
 ---
 
 <SiteLayout
@@ -20,53 +13,85 @@ const campusSrcSet = [480, 800, 1400]
   section="events"
 >
   <section class="events-page container" aria-labelledby="events-title">
-    <p class="label page-label">Club activities</p>
     <h1 id="events-title">Events &amp; Yatra.</h1>
-    <div class="events-notice">
-      <h2>Upcoming events</h2>
-      <UpcomingEvents />
-    </div>
-    <div class="events-feature">
-      <img
-        class="events-feature-photo"
-        src={url('/images/events-yatra-campus.webp')}
-        srcset={campusSrcSet}
-        sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1199px) calc(100vw - 64px), 1328px"
-        alt="Yatra 5.0 exhibition tents on the NCE campus"
-        width="1400"
-        height="934"
-        fetchpriority="high"
-        decoding="async"
+    <div class="event-showcase">
+      <div class="event-showcase-copy">
+        <p class="event-date">{club.events.yatra5.dates}</p>
+        <h2>Yatra 5.0</h2>
+        <p>Robots, projects and the people behind them.</p>
+        <a class="button primary compact" href={url('/events/yatra-5/')}>
+          Explore Yatra 5.0
+        </a>
+        <div class="events-notice">
+          <h3>Upcoming events</h3>
+          <UpcomingEvents />
+        </div>
+      </div>
+      <EventCarousel
+        id="events-feature-photos"
+        photos={club.events.yatra5.photos}
+        label="Yatra 5.0 event photographs"
+        compact
+        priority
+        destination="/events/yatra-5/"
       />
-      <h2>Yatra 5.0</h2>
-      <a class="button primary compact" href={url('/events/yatra-5/')}>
-        Explore Yatra 5.0
-      </a>
     </div>
-    <h2 class="section-title">Past editions</h2>
-    <ul class="edition-list">
-      {club.events.editions.map((edition) => (
-        <li class="edition-row">
-          <h3>{edition.label}</h3>
-          <a
-            class="button outline"
-            href={
-              edition.href.startsWith('/') ? url(edition.href) : edition.href
-            }
-            target={edition.href.startsWith('/') ? undefined : '_blank'}
-            rel={
-              edition.href.startsWith('/') ? undefined : 'noopener noreferrer'
-            }
+    <section class="event-collections" aria-labelledby="past-editions-title">
+      <h2 id="past-editions-title">Past editions</h2>
+      <ul class="edition-list">
+        {club.events.editions.map((edition, index) => (
+          <li
+            class:list={[
+              'edition-card',
+              { 'edition-card--photos': index === 0 },
+            ]}
           >
-            View archive
-            <span class="sr-only">
-              {' '}
-              for {edition.label}
-              {edition.href.startsWith('/') ? '' : ' (opens in a new tab)'}
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
+            <div
+              class={`edition-cover edition-cover--${index}`}
+              aria-hidden="true"
+            >
+              {index === 0 ? (
+                <img
+                  src={url('/images/yatra-nce-robot-800.webp')}
+                  alt=""
+                  width="800"
+                  height="1199"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <span class="edition-number">
+                  {['05', '04', '03', '02', '01'][index]}
+                </span>
+              )}
+            </div>
+            <div class="edition-caption">
+              <h3>{edition.label}</h3>
+              <a
+                class="edition-link"
+                href={
+                  edition.href.startsWith('/')
+                    ? url(edition.href)
+                    : edition.href
+                }
+                target={edition.href.startsWith('/') ? undefined : '_blank'}
+                rel={
+                  edition.href.startsWith('/')
+                    ? undefined
+                    : 'noopener noreferrer'
+                }
+              >
+                See more <span aria-hidden="true">↗</span>
+                <span class="sr-only">
+                  {' '}
+                  for {edition.label}
+                  {edition.href.startsWith('/') ? '' : ' (opens in a new tab)'}
+                </span>
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   </section>
 </SiteLayout>
