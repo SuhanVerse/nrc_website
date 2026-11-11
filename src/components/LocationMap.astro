@@ -1,9 +1,16 @@
-<div class="footer-map-frame">
+---
+interface Props {
+  wide?: boolean;
+}
+const { wide = false } = Astro.props;
+---
+
+<div class:list={['location-map', { 'location-map--wide': wide }]}>
   <iframe
     src="https://maps.google.com/maps?q=National%20College%20of%20Engineering&t=m&z=11&output=embed&iwloc=near"
     title="National College of Engineering, Lalitpur location map"
-    width="320"
-    height="320"
+    width={wide ? 640 : 320}
+    height={wide ? 480 : 320}
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"
     allowfullscreen
@@ -11,7 +18,7 @@
 </div>
 
 <style>
-  .footer-map-frame {
+  .location-map {
     width: 100%;
     max-width: 320px;
     aspect-ratio: 1;
@@ -20,6 +27,12 @@
     border: 1px solid var(--line);
     border-radius: 20px;
     background: var(--paper);
+  }
+
+  .location-map--wide {
+    max-width: none;
+    aspect-ratio: 4 / 3;
+    margin-top: 0;
   }
 
   iframe {

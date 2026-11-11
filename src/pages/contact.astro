@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import LocationMap from '../components/LocationMap.astro';
 import { club } from '../content/public';
 import { siteConfig, url } from '../content/site';
 import { resolveMembershipState } from '../features/membership/state';
@@ -11,45 +12,59 @@ const membership = resolveMembershipState(club.membership);
     <p class="label page-label">Get in touch</p>
     <h1>Contact the club.</h1>
     <div class="contact-grid">
-      <div class="contact-card">
-        <h2>Email</h2>
-        <a class="contact-email" href={`mailto:${club.club.email}`}>
-          {club.club.email}
-        </a>
-        <h2>Visit</h2>
-        <p>
-          {club.club.location}
-          <br />
-          {club.club.address}
-        </p>
-        <a class="arrow-link" href={siteConfig.mapUrl}>
-          View on map <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-      <div class="contact-card">
-        <h2>Connect</h2>
-        <div class="contact-socials">
-          {club.club.socials.map((s) => (
-            <a class="contact-social-link" href={s.url}>
-              <img
-                src={url(`/icons/${s.label.toLowerCase()}.svg`)}
-                width="44"
-                height="44"
-                alt=""
-              />
-              {s.label}
-              <span aria-hidden="true">↗</span>
+      <div class="contact-details">
+        <div class="contact-card contact-direct">
+          <div>
+            <h2>Email</h2>
+            <a class="contact-email" href={`mailto:${club.club.email}`}>
+              {club.club.email}
             </a>
-          ))}
+          </div>
+          <div>
+            <h2>Connect</h2>
+            <div class="contact-socials">
+              {club.club.socials.map((s) => (
+                <a class="contact-social-link" href={s.url}>
+                  <img
+                    src={url(`/icons/${s.label.toLowerCase()}.svg`)}
+                    width="44"
+                    height="44"
+                    alt=""
+                  />
+                  {s.label}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="contact-membership-note">
+          <div>
+            <h2>Membership enquiries</h2>
+            <p>Applications are currently {membership.status}.</p>
+          </div>
+          <a class="arrow-link" href={url('/membership/')}>
+            Membership <span aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
-    </div>
-    <div class="events-notice contact-membership-note">
-      <h2>Membership enquiries</h2>
-      <p>Applications are currently {membership.status}.</p>
-      <a class="arrow-link" href={url('/membership/')}>
-        Membership <span aria-hidden="true">→</span>
-      </a>
+      <section
+        class="contact-card contact-location"
+        aria-labelledby="contact-visit-title"
+      >
+        <div>
+          <h2 id="contact-visit-title">Visit</h2>
+          <p>
+            {club.club.location}
+            <br />
+            {club.club.address}
+          </p>
+        </div>
+        <LocationMap wide />
+        <a class="arrow-link" href={siteConfig.mapUrl}>
+          Get directions <span aria-hidden="true">↗</span>
+        </a>
+      </section>
     </div>
   </section>
 </SiteLayout>
