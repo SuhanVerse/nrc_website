@@ -13,7 +13,7 @@ test('approved public records preserve membership, contacts and committee order'
     sortCommittee(club.members)
       .slice(0, 3)
       .map((m) => m.name),
-    ['Prabhat Rawal', 'Bishal Gyawalli', 'Sudhikashya Tako'],
+    ['Prabhat Rawal', 'Bishal Gyawalli', 'Pratham Timalsina'],
   );
   const suhan = club.members.find((m) => m.slug === 'suhan-khadka');
   assert.equal(suhan?.role, 'Treasurer');

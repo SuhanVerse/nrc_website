@@ -5,39 +5,24 @@ interface Props {
   member: Member;
 }
 const { member } = Astro.props;
-const platforms = ['Facebook', 'LinkedIn', 'GitHub'] as const;
 ---
 
-<div class="member-socials" aria-label={`${member.name} social profiles`}>
-  {platforms.map((platform) => {
-    const profile = member.socials.find((s) => s.label === platform);
-    return profile ? (
+{member.socials.length > 0 && (
+  <div class="member-socials" aria-label={`${member.name} social profiles`}>
+    {member.socials.map((profile) => (
       <a
         href={profile.url}
         class="member-social-link"
-        aria-label={`${member.name} on ${platform}`}
+        aria-label={`${member.name} on ${profile.label}`}
       >
         <img
-          src={url(`/icons/${platform.toLowerCase()}.svg`)}
+          src={url(`/icons/${profile.label.toLowerCase()}.svg`)}
           alt=""
           width="28"
           height="28"
           loading="lazy"
         />
       </a>
-    ) : (
-      <span
-        class="member-social-link is-pending"
-        title={`${platform} profile not supplied`}
-      >
-        <img
-          src={url(`/icons/${platform.toLowerCase()}.svg`)}
-          alt={`${platform} profile not supplied`}
-          width="28"
-          height="28"
-          loading="lazy"
-        />
-      </span>
-    );
-  })}
-</div>
+    ))}
+  </div>
+)}

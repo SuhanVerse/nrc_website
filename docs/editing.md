@@ -12,11 +12,12 @@ Yatra archive and membership state. Keep copy short and factual. Add only
 approved links and media; do not include private membership, inventory or
 financial records. `pnpm check` validates the public data shape and local assets.
 
-The committee is ordered by batch, **079 → 080 → 081 → 082**. Source order is
-preserved within each batch; the Home teaser uses the same rule. A public role
-label does not grant access to any club system. Each profile has a name, role,
-academic label, portrait and confirmed social links. Leave unknown links absent:
-the design shows muted, noninteractive logo slots instead of guessed URLs.
+Office holders lead in this order: President, R&D Head, Secretary, Treasurer,
+Event Manager. Ordinary Members follow by batch, **079 → 080 → 081 → 082**,
+with names A–Z within each batch. The Home teaser uses the same order. A public
+role label does not grant access to any club system. Each profile has a name,
+role, academic label, portrait and confirmed social links. Missing profiles have
+no logo or link; never guess a destination.
 When the roster intentionally changes, update the browser assertions for its
 count, names and confirmed social destinations along with the data.
 
@@ -73,17 +74,27 @@ stat -c %s public/images/approved-photo.webp
 Use only actual approved social destinations. The withdrawn phone number must
 not be restored without a new club decision. See [media notices](media.md).
 
-Home photographs advance every second. Selecting a dot holds that photo
+Home photographs advance every three seconds. Selecting a dot holds that photo
 until reload. Hover and keyboard focus suspend rotation. Reduced motion keeps
 the photos still while the dots remain usable.
 
 Event collections use a layered photo carousel with arrow and swipe navigation.
-Photos advance every second. Using an arrow or swiping holds the selected
+Photos advance every three seconds. Using an arrow or swiping holds the selected
 photo until reload. Hover, keyboard focus and reduced motion suspend rotation.
 Saved automatic-photo preferences are respected. Controls show previous and next
 arrows, with image descriptions and manual position announcements available to
 screen readers. Opening a photo on the Yatra detail page shows the full image.
 Without JavaScript, the collection remains a scrollable row of image links.
+
+## Motion
+
+Committee cards have a short, one-time entrance when they come into view.
+Project rows and selected collection/contact cards use a smaller entrance.
+Card hover and keyboard focus share a gentle lift; menu/photo dialogs settle
+briefly on opening. All content stays visible without JavaScript. Reduced motion
+skips these effects, including when the preference changes during an entrance.
+Keyboard focus immediately settles a card so its links remain easy to use.
+Motion uses browser APIs and CSS without an additional animation dependency.
 
 ## Before opening a pull request
 

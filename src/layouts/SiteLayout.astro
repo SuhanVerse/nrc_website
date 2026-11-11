@@ -3,6 +3,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { siteConfig } from '../content/site';
 import '../styles/site.css';
+import '../styles/motion.css';
 import archivoFont from '../../public/fonts/archivo.woff2?url';
 import textFont from '../../public/fonts/source-sans-3.woff2?url';
 interface Props {
@@ -65,6 +66,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.siteOrigin);
     <SiteFooter />
     <script>
       import '../features/navigation';
+      import '../features/motion';
     </script>
   </body>
 </html>
