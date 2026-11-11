@@ -132,15 +132,18 @@ for (const width of [1440, 390]) {
   }
 }
 
-test('committee order, portrait frames and confirmed social destinations', async ({
+test('continuous committee grid, order, portraits and confirmed social destinations', async ({
   page,
 }) => {
   await page.goto('team/');
   const cards = page.locator('.member-card');
   await expect(cards).toHaveCount(13);
-  expect(await page.locator('.committee-batch > h2').allTextContents()).toEqual(
-    ['Office holders', 'Batch 080', 'Batch 081', 'Batch 082'],
-  );
+  await expect(page.locator('.member-grid')).toHaveCount(1);
+  await expect(page.locator('.member-grid > .member-card')).toHaveCount(13);
+  await expect(page.locator('.committee-batch')).toHaveCount(0);
+  await expect(
+    page.getByRole('heading', { name: /^(Office holders|Batch \d{3})$/ }),
+  ).toHaveCount(0);
   const names = [
     'Prabhat Rawal',
     'Bishal Gyawalli',
@@ -156,7 +159,12 @@ test('committee order, portrait frames and confirmed social destinations', async
     'Rachana Tamrakar',
     'Samarpan Khadka',
   ];
-  expect(await cards.locator('h3').allTextContents()).toEqual(names);
+  expect(await cards.locator('h2').allTextContents()).toEqual(names);
+  const fifth = await cards.nth(4).boundingBox();
+  const sixth = await cards.nth(5).boundingBox();
+  expect(fifth).not.toBeNull();
+  expect(sixth).not.toBeNull();
+  expect(fifth!.y).toBe(sixth!.y);
   await expect(cards.locator('a.member-social-link')).toHaveCount(27);
   await expect(
     cards.locator('.is-pending, span.member-social-link'),
