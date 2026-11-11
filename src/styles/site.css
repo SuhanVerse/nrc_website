@@ -1019,6 +1019,17 @@ figcaption {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 26px;
 }
+.committee-batch {
+  margin-top: 48px;
+}
+.committee-batch > h2 {
+  font-size: 23px;
+  line-height: 30px;
+  letter-spacing: -0.025em;
+}
+.committee-batch .member-grid {
+  margin-top: 22px;
+}
 .member-card {
   display: flex;
   flex-direction: column;
@@ -1077,14 +1088,6 @@ figcaption {
   height: 28px;
   border-radius: 7px;
 }
-.member-social-link.is-pending {
-  opacity: 0.4;
-  border-color: transparent;
-  cursor: default;
-}
-.member-social-link.is-pending img {
-  filter: grayscale(1);
-}
 @media (hover: hover) and (pointer: fine) {
   a.member-social-link:hover {
     transform: translateY(-2px);
@@ -1099,7 +1102,7 @@ figcaption {
     transform: none;
   }
 }
-.member-card h2 {
+.member-card h3 {
   margin-top: 22px;
   font-size: 23px;
   line-height: 30px;
@@ -1650,20 +1653,6 @@ html {
   z-index: 2;
   background: var(--line);
 }
-.member-card {
-  transition: transform 180ms ease;
-}
-.member-portrait img {
-  transition: transform 180ms ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .member-card:hover {
-    transform: translateY(-3px);
-  }
-  .member-card:hover .member-portrait img {
-    transform: scale(1.015);
-  }
-}
 @media (max-width: 639px) {
   .membership-status-card {
     padding: 24px;
@@ -1671,12 +1660,6 @@ html {
   }
   .membership-status-card h2 {
     font-size: 27px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .member-card:hover,
-  .member-card:hover .member-portrait img {
-    transform: none;
   }
 }
 .upcoming-list {

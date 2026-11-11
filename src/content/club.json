@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-09",
+  "asOf": "2026-11-11",
   "club": {
     "name": "NCE Robotics Club",
     "college": "National College of Engineering",
@@ -36,8 +36,16 @@
       "portrait": "/images/prabhat-rawal.webp",
       "socials": [
         {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/prabhat.d.rawal"
+        },
+        {
           "label": "LinkedIn",
-          "url": "https://www.linkedin.com/in/prabhat-rawal"
+          "url": "https://www.linkedin.com/in/prabhat-rawal/"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/prabhatdrawal"
         }
       ]
     },
@@ -47,15 +55,33 @@
       "role": "R&D Head",
       "academicLabel": "BCT 079",
       "portrait": "/images/bishal-gyawalli.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/B.sal.gy"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/bishal-gyawali-068729273/"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/codeblockster"
+        }
+      ]
     },
     {
       "slug": "sudikshya",
-      "name": "Sudhikashya Tako",
+      "name": "Sudikshya Tako",
       "role": "Event Manager",
       "academicLabel": "BCT 079",
       "portrait": "/images/sudhikashya.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/sudikshya.tako/directory_education"
+        }
+      ]
     },
     {
       "slug": "pratham",
@@ -63,7 +89,16 @@
       "role": "Secretary",
       "academicLabel": "BEI 080",
       "portrait": "/images/pratham.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/pratham.timalsina.517705"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/pratham-timalsina-779024291/"
+        }
+      ]
     },
     {
       "slug": "suhan-khadka",
@@ -92,7 +127,16 @@
       "role": "Member",
       "academicLabel": "BEI 080",
       "portrait": "/images/arushi-pandey.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/arushi.pandey.16906"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/arushi-pandey-b03b30349/"
+        }
+      ]
     },
     {
       "slug": "shrawan",
@@ -100,7 +144,12 @@
       "role": "Member",
       "academicLabel": "BEI 080",
       "portrait": "/images/shrawan.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/shrawan-prasai-064289231/"
+        }
+      ]
     },
     {
       "slug": "rhythm",
@@ -108,7 +157,12 @@
       "role": "Member",
       "academicLabel": "BEI 081",
       "portrait": "/images/rhythm.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/youngserena19/"
+        }
+      ]
     },
     {
       "slug": "sarad",
@@ -116,7 +170,16 @@
       "role": "Member",
       "academicLabel": "BEI 081",
       "portrait": "/images/sarad.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/sarad.rai.31586"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/nerd_blender_/"
+        }
+      ]
     },
     {
       "slug": "pranishmaharjan",
@@ -124,7 +187,20 @@
       "role": "Member",
       "academicLabel": "BEI 082",
       "portrait": "/images/pranish-maharjan.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/maharjanpranish71"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/maharjanpranish/"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/maharjanPranish/"
+        }
+      ]
     },
     {
       "slug": "samarpan-khadka",
@@ -132,7 +208,12 @@
       "role": "Member",
       "academicLabel": "BCT 082",
       "portrait": "/images/samarpan-khadka.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/samarpan.khadka.54"
+        }
+      ]
     },
     {
       "slug": "rachana-tamrakar",
@@ -140,7 +221,16 @@
       "role": "Member",
       "academicLabel": "BEI 082",
       "portrait": "/images/rachana-tamrakar.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/profile.php?id=100091840178429"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/rachana-tamrakar-2992b3372/"
+        }
+      ]
     },
     {
       "slug": "pravin-pandey",
@@ -148,7 +238,20 @@
       "role": "Member",
       "academicLabel": "BEI 082",
       "portrait": "/images/pravin-pandey.webp",
-      "socials": []
+      "socials": [
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/pravin.pandey.58182"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/pravin-pandey-442122374/"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/Pravin-me"
+        }
+      ]
     }
   ],
   "projects": [

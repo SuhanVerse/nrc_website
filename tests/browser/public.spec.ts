@@ -90,6 +90,18 @@ for (const width of [1440, 390]) {
         if (link.startsWith('http://127.0.0.1:8051') && !link.includes('#'))
           expect((await request.get(link)).status(), link).toBe(200);
       }
+      await page.evaluate(async () => {
+        // Audit the settled page, not an intermediate opacity during entry.
+        await new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        );
+        await Promise.all(
+          document
+            .getAnimations()
+            .filter((animation) => animation.id === 'content-enter')
+            .map((animation) => animation.finished.catch(() => {})),
+        );
+      });
       const audit = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
         .analyze();
@@ -126,22 +138,51 @@ test('committee order, portrait frames and confirmed social destinations', async
   await page.goto('team/');
   const cards = page.locator('.member-card');
   await expect(cards).toHaveCount(13);
-  const expected = [...data.members].sort(
-    (a, b) =>
-      Number(a.academicLabel.slice(-3)) - Number(b.academicLabel.slice(-3)),
+  expect(await page.locator('.committee-batch > h2').allTextContents()).toEqual(
+    ['Office holders', 'Batch 080', 'Batch 081', 'Batch 082'],
   );
-  expect(await cards.locator('h2').allTextContents()).toEqual(
-    expected.map((m) => m.name),
-  );
-  await expect(cards.locator('a.member-social-link')).toHaveCount(4);
-  await expect(cards.locator('.is-pending')).toHaveCount(35);
+  const names = [
+    'Prabhat Rawal',
+    'Bishal Gyawalli',
+    'Pratham Timalsina',
+    'Suhan Khadka',
+    'Sudikshya Tako',
+    'Arushi Pandey',
+    'Shrawan Parsai',
+    'Rhythm Darlami',
+    'Sarad Rai',
+    'Pranish Maharjan',
+    'Pravin Pandey',
+    'Rachana Tamrakar',
+    'Samarpan Khadka',
+  ];
+  expect(await cards.locator('h3').allTextContents()).toEqual(names);
+  await expect(cards.locator('a.member-social-link')).toHaveCount(27);
+  await expect(
+    cards.locator('.is-pending, span.member-social-link'),
+  ).toHaveCount(0);
+  for (const [index, name] of names.entries()) {
+    const member = data.members.find((record) => record.name === name)!;
+    const links = cards.nth(index).locator('a.member-social-link');
+    await expect(links).toHaveCount(member.socials.length);
+    for (const [linkIndex, profile] of member.socials.entries()) {
+      await expect(links.nth(linkIndex)).toHaveAttribute('href', profile.url);
+      await expect(links.nth(linkIndex)).toHaveAccessibleName(
+        `${name} on ${profile.label}`,
+      );
+      await expect(links.nth(linkIndex).locator('img')).toHaveAttribute(
+        'src',
+        new RegExp(`/icons/${profile.label.toLowerCase()}\\.svg$`),
+      );
+    }
+  }
   await expect(cards.first().locator('.member-portrait')).toHaveCSS(
     'width',
     '180px',
   );
   await page.goto('./');
   expect(await page.locator('.person-card h3').allTextContents()).toEqual(
-    expected.slice(0, 3).map((m) => m.name),
+    names.slice(0, 3),
   );
 });
 
@@ -297,7 +338,7 @@ test('photo viewer wraps, traps focus and restores its opener', async ({
   await expect(opener).toBeFocused();
 });
 
-test('Home photos rotate every second, loop, allow quiet dot selection and obey hover and reduced motion', async ({
+test('Home photos rotate every three seconds, loop, allow quiet dot selection and obey hover and reduced motion', async ({
   page,
 }) => {
   test.setTimeout(60000);
@@ -310,15 +351,17 @@ test('Home photos rotate every second, loop, allow quiet dot selection and obey 
   await expect(dots.nth(0)).toHaveAccessibleName('Show photo 1');
   await expect(dots.nth(0)).toHaveAttribute('aria-pressed', 'true');
   await expect(caption).toHaveText('Projectile Turret at Yatra');
+  await page.waitForTimeout(1500);
+  await expect(caption).toHaveText('Projectile Turret at Yatra');
   await expect(caption).toHaveText('Object Sorting System demonstration', {
-    timeout: 2000,
+    timeout: 4500,
   });
   await expect(dots.nth(1)).toHaveAttribute('aria-pressed', 'true');
   await expect(caption).toHaveText('Project workbench at the exhibition', {
-    timeout: 2000,
+    timeout: 4500,
   });
   await expect(caption).toHaveText('Projectile Turret at Yatra', {
-    timeout: 2000,
+    timeout: 4500,
   });
   await expect(dots.nth(0)).toHaveAttribute('aria-pressed', 'true');
   await dots.nth(2).click();
@@ -326,22 +369,22 @@ test('Home photos rotate every second, loop, allow quiet dot selection and obey 
   await expect(dots.nth(2)).toHaveAttribute('aria-pressed', 'true');
   await page.locator('.hero-actions a').first().focus();
   await page.mouse.move(0, 0);
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(3500);
   await expect(caption).toHaveText('Project workbench at the exhibition');
   await page.evaluate(() => localStorage.setItem('nce:auto-photos', 'off'));
   await page.reload();
   await expect(caption).toHaveText('Projectile Turret at Yatra');
   await expect(caption).toHaveText('Object Sorting System demonstration', {
-    timeout: 2000,
+    timeout: 4500,
   });
   await gallery.hover();
   const hovered = await caption.textContent();
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(3500);
   await expect(caption).toHaveText(hovered!);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.mouse.move(0, 0);
   const still = await caption.textContent();
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(3500);
   await expect(caption).toHaveText(still!);
   await dots.nth(0).click();
   await expect(caption).toHaveText('Projectile Turret at Yatra');
@@ -367,7 +410,108 @@ test('content and navigation remain usable without JavaScript', async ({
     .getByRole('link', { name: 'Team' })
     .click();
   await expect(page.locator('.member-card')).toHaveCount(13);
+  const lastCard = page.locator('.member-card').last();
+  await lastCard.scrollIntoViewIfNeeded();
+  await expect(lastCard).toBeVisible();
+  await expect(lastCard).toHaveCSS('opacity', '1');
   await context.close();
+});
+
+test('committee cards settle after one entrance and stay settled when revisited', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('team/');
+  const first = page.locator('.member-card').first();
+  const entering = (card: typeof first) =>
+    card.evaluate(
+      (node) =>
+        node
+          .getAnimations()
+          .filter((animation) => animation.id === 'content-enter').length,
+    );
+  await expect.poll(() => entering(first)).toBe(1);
+  await first.evaluate((node) =>
+    node.getAnimations().forEach((animation) => animation.finish()),
+  );
+  await expect(first).toHaveCSS('opacity', '1');
+  await expect(first).toHaveCSS('translate', 'none');
+
+  const last = page.locator('.member-card').last();
+  await last.scrollIntoViewIfNeeded();
+  await expect.poll(() => entering(last)).toBe(1);
+  await last.evaluate((node) =>
+    node.getAnimations().forEach((animation) => animation.finish()),
+  );
+  await page.locator('h1').scrollIntoViewIfNeeded();
+  await last.scrollIntoViewIfNeeded();
+  expect(await entering(last)).toBe(0);
+  await expect(last).toHaveCSS('opacity', '1');
+});
+
+test('card focus settles motion and matches hover; reduced motion removes the lift', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('team/');
+  const card = page.locator('.member-card').first();
+  const link = card.getByRole('link').first();
+  await link.focus();
+  await expect(link).toBeFocused();
+  await expect(card).toHaveCSS('opacity', '1');
+  await expect(card).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, -4)');
+  expect(
+    await card.evaluate((node) =>
+      node.getAnimations().some((a) => a.id === 'content-enter'),
+    ),
+  ).toBe(false);
+  await page.locator('.breadcrumb a').focus();
+  await card.hover();
+  await expect(card).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, -4)');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(card).toHaveCSS('transform', 'none');
+  await expect(card).toHaveCSS('opacity', '1');
+});
+
+test('reduced motion skips entrances and cancels an entrance when changed', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('team/');
+  const cards = page.locator('.member-card');
+  await expect(cards.first()).toHaveCSS('opacity', '1');
+  expect(
+    await cards.evaluateAll((nodes) =>
+      nodes.some((node) => node.getAnimations().length > 0),
+    ),
+  ).toBe(false);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.reload();
+  await expect
+    .poll(() =>
+      cards
+        .first()
+        .evaluate((node) =>
+          node.getAnimations().some((a) => a.id === 'content-enter'),
+        ),
+    )
+    .toBe(true);
+  await cards.evaluateAll((nodes) =>
+    nodes.forEach((node) =>
+      node.getAnimations().forEach((animation) => animation.pause()),
+    ),
+  );
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect
+    .poll(
+      () =>
+        cards.evaluateAll((nodes) =>
+          nodes.some((node) => node.getAnimations().length > 0),
+        ),
+      { timeout: 1000 },
+    )
+    .toBe(false);
+  await expect(cards.first()).toHaveCSS('opacity', '1');
 });
 
 test('a failed later gallery image preserves the decoded photograph until the next usable photo', async ({
@@ -379,7 +523,13 @@ test('a failed later gallery image preserves the decoded photograph until the ne
     failedPhotoRequested = true;
   });
   await page.goto('./');
-  await expect.poll(() => failedPhotoRequested, { timeout: 2000 }).toBe(true);
+  await expect.poll(() => failedPhotoRequested, { timeout: 4500 }).toBe(true);
+  // The Projects thumbnail can fail before the carousel attempts the same photo.
+  await expect(page.locator('.photo-window img').nth(1)).toHaveAttribute(
+    'src',
+    /object-sorting/,
+    { timeout: 4500 },
+  );
   await expect(page.locator('[data-gallery-caption]')).toHaveText(
     'Projectile Turret at Yatra',
   );
@@ -390,7 +540,7 @@ test('a failed later gallery image preserves the decoded photograph until the ne
   ).toBeGreaterThan(0);
   await expect(page.locator('[data-gallery-caption]')).toHaveText(
     'Project workbench at the exhibition',
-    { timeout: 3000 },
+    { timeout: 4500 },
   );
 });
 
@@ -580,31 +730,33 @@ test('event carousel accepts phone swipes and retains a usable centered photo', 
   ).toBe(true);
 });
 
-test('event photos advance every second, loop and hold after navigation, stored preference and reduced motion', async ({
+test('event photos advance every three seconds, loop and hold after navigation, stored preference and reduced motion', async ({
   page,
 }) => {
-  test.setTimeout(45000);
+  test.setTimeout(60000);
   await page.goto('events/');
   const carousel = page.locator('[data-event-carousel]');
   await carousel.scrollIntoViewIfNeeded();
   await expect(carousel).toHaveClass(/is-enhanced/);
+  await page.waitForTimeout(1500);
+  await expect(carousel).toHaveAttribute('data-current', '0');
   for (const current of ['1', '2', '3', '4', '5', '6', '7', '8', '0']) {
     await expect(carousel).toHaveAttribute('data-current', current, {
-      timeout: 2000,
+      timeout: 4500,
     });
   }
   await carousel.locator('[data-event-prev]').click();
   await expect(carousel).toHaveAttribute('data-current', '8');
   await page.mouse.move(0, 0);
   await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(3500);
   await expect(carousel).toHaveAttribute('data-current', '8');
 
   await page.evaluate(() => localStorage.setItem('nce:auto-photos', 'off'));
   await page.reload();
   await carousel.scrollIntoViewIfNeeded();
   await expect(carousel).toHaveClass(/is-enhanced/);
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(3500);
   await expect(carousel).toHaveAttribute('data-current', '0');
 
   await page.evaluate(() => localStorage.removeItem('nce:auto-photos'));
@@ -612,7 +764,7 @@ test('event photos advance every second, loop and hold after navigation, stored 
   await page.reload();
   await carousel.scrollIntoViewIfNeeded();
   await expect(carousel).toHaveClass(/is-enhanced/);
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(3500);
   await expect(carousel).toHaveAttribute('data-current', '0');
   await carousel.locator('[data-event-next]').click();
   await expect(carousel).toHaveAttribute('data-current', '1');

@@ -27,6 +27,5 @@ at the arena edge. Captions describe the scene without assigning an unverified
 competition result. The college mark links to the college's official website.
 
 Use real photographs for real club work. The 3D Printer photograph is still
-pending and its project row states that explicitly. Unknown member social links remain
-inactive. Original private photographs, research archives and private records
+pending and its project row states that explicitly. Unknown member social links and their icons are omitted. Original private photographs, research archives and private records
 are not part of the public source distribution.
