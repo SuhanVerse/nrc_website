@@ -28,9 +28,11 @@ Yatra 5.0 figures are attributed to the college recap. Earlier editions link to
 the college archive. Keep `upcomingEvents` empty until an actual event is ready
 to announce.
 
-The footer uses the supplied college logo as its college-website link. The footer's rounded map embeds the location used on the college's own
-[website](https://nce.edu.np/). It loads Google Maps when the footer approaches
-view and makes requests to Google services.
+The footer uses the supplied college logo as its college-website link. Contact and
+the footer share `src/components/LocationMap.astro`, using the location from the
+college's own [website](https://nce.edu.np/). Contact uses a wider frame and keeps
+an external directions link. Both maps load lazily and make requests to Google
+services.
 
 ## Membership
 

@@ -239,7 +239,7 @@ test('footer shows the college logo, club address and rounded embedded map', asy
   await expect(map).toHaveAttribute('loading', 'lazy');
   await expect(map).toHaveAttribute('width', '320');
   await expect(map).toHaveAttribute('height', '320');
-  await expect(footer.locator('.footer-map-frame')).toHaveCSS(
+  await expect(footer.locator('.location-map')).toHaveCSS(
     'border-radius',
     '20px',
   );
@@ -250,6 +250,107 @@ test('footer shows the college logo, club address and rounded embedded map', asy
     footer.getByRole('link', { name: 'College website', exact: true }),
   ).toHaveCount(0);
 });
+
+for (const width of [1440, 390, 320]) {
+  test(`Contact location map and directions at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('contact/');
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      );
+      await Promise.all(
+        document
+          .getAnimations()
+          .filter((animation) => animation.id === 'content-enter')
+          .map((animation) => animation.finished.catch(() => {})),
+      );
+    });
+    for (const link of await page.locator('.contact-social-link').all()) {
+      expect(
+        await link.evaluate(
+          (element) => element.scrollWidth <= element.clientWidth,
+        ),
+      ).toBe(true);
+    }
+    const visit = page.getByRole('region', { name: 'Visit', exact: true });
+    const emailBounds = await page.locator('.contact-direct').boundingBox();
+    const socialBounds = await page
+      .locator('.contact-social-link')
+      .last()
+      .boundingBox();
+    const membershipBounds = await page
+      .locator('.contact-membership-note')
+      .boundingBox();
+    const visitBounds = await visit.boundingBox();
+    expect(emailBounds).not.toBeNull();
+    expect(socialBounds).not.toBeNull();
+    expect(membershipBounds).not.toBeNull();
+    expect(visitBounds).not.toBeNull();
+    expect(
+      emailBounds!.y +
+        emailBounds!.height -
+        socialBounds!.y -
+        socialBounds!.height,
+    ).toBeLessThanOrEqual(34);
+    expect(membershipBounds!.width).toBeCloseTo(emailBounds!.width, 0);
+    expect(
+      membershipBounds!.y - emailBounds!.y - emailBounds!.height,
+    ).toBeCloseTo(24, 0);
+    if (width >= 1000) {
+      expect(visitBounds!.y).toBeCloseTo(emailBounds!.y, 0);
+      expect(membershipBounds!.x + membershipBounds!.width).toBeLessThan(
+        visitBounds!.x,
+      );
+    } else {
+      expect(visitBounds!.y).toBeGreaterThan(
+        membershipBounds!.y + membershipBounds!.height,
+      );
+    }
+    const map = visit.locator('iframe');
+    await expect(visit).toContainText(data.club.location);
+    await expect(visit).toContainText(data.club.address);
+    await expect(map).toHaveAttribute('title', mapTitle);
+    await expect(map).toHaveAttribute('src', mapSource);
+    await expect(map).toHaveAttribute('loading', 'lazy');
+    await map.scrollIntoViewIfNeeded();
+    await expect(
+      visit.frameLocator('iframe').getByText('Map frame fixture'),
+    ).toBeVisible();
+    await expect(visit.locator('.location-map')).toHaveCSS(
+      'border-radius',
+      '20px',
+    );
+    const bounds = await map.boundingBox();
+    expect(bounds).not.toBeNull();
+    expect(bounds!.width).toBeGreaterThan(200);
+    expect(bounds!.width / bounds!.height).toBeCloseTo(4 / 3, 1);
+    expect(bounds!.x).toBeGreaterThanOrEqual(0);
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+    const directions = visit.getByRole('link', { name: 'Get directions' });
+    await expect(directions).toHaveAttribute(
+      'href',
+      'https://maps.app.goo.gl/DVfdNNojsxiafeM28',
+    );
+    await directions.focus();
+    await expect(directions).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(
+      page
+        .locator('.site-footer')
+        .getByRole('link', { name: 'NCE Robotics Club home', exact: true }),
+    ).toBeFocused();
+    await expect(page.locator('.site-footer iframe')).toHaveCount(1);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  });
+}
 
 test('Home and Projects open project repositories or videos directly', async ({
   page,
