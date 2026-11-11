@@ -6,26 +6,6 @@ import { club } from '../content/public';
 import { sortCommittee } from '../features/committee/order';
 import { url } from '../content/site';
 const committee = sortCommittee(club.members);
-const officeHolders = committee.filter(
-  (member) => member.role.trim().toLowerCase() !== 'member',
-);
-const batches = new Map<string, typeof committee>();
-for (const member of committee.filter(
-  (entry) => entry.role.trim().toLowerCase() === 'member',
-)) {
-  const year = member.academicLabel.slice(-3);
-  const batchMembers = batches.get(year) ?? [];
-  batchMembers.push(member);
-  batches.set(year, batchMembers);
-}
-const groups = [
-  { id: 'office-holders', title: 'Office holders', members: officeHolders },
-  ...[...batches].map(([year, members]) => ({
-    id: `batch-${year}`,
-    title: `Batch ${year}`,
-    members,
-  })),
-].filter((group) => group.members.length > 0);
 ---
 
 <SiteLayout title="Our committee" section="team">
@@ -35,31 +15,26 @@ const groups = [
       <span aria-current="page">Team</span>
     </nav>
     <h1 id="team-title">Our committee</h1>
-    {groups.map((group) => (
-      <section class="committee-batch" aria-labelledby={group.id}>
-        <h2 id={group.id}>{group.title}</h2>
-        <ul class="member-grid" data-reveal-group>
-          {group.members.map((member) => (
-            <li class="member-card" data-reveal="card">
-              <div class="member-portrait">
-                <img
-                  src={url(member.portrait)}
-                  alt={member.name}
-                  width="180"
-                  height="180"
-                  loading={member === committee[0] ? 'eager' : 'lazy'}
-                  fetchpriority={member === committee[0] ? 'high' : undefined}
-                />
-              </div>
-              <h3>{member.name}</h3>
-              <p class="member-role">{member.role}</p>
-              <p class="member-batch">{member.academicLabel}</p>
-              <MemberSocials member={member} />
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))}
+    <ul class="member-grid" data-reveal-group>
+      {committee.map((member) => (
+        <li class="member-card" data-reveal="card">
+          <div class="member-portrait">
+            <img
+              src={url(member.portrait)}
+              alt={member.name}
+              width="180"
+              height="180"
+              loading={member === committee[0] ? 'eager' : 'lazy'}
+              fetchpriority={member === committee[0] ? 'high' : undefined}
+            />
+          </div>
+          <h2>{member.name}</h2>
+          <p class="member-role">{member.role}</p>
+          <p class="member-batch">{member.academicLabel}</p>
+          <MemberSocials member={member} />
+        </li>
+      ))}
+    </ul>
     <div class="team-contact">
       <a class="arrow-link" href={url('/contact/')}>
         Contact the club

@@ -14,8 +14,9 @@ financial records. `pnpm check` validates the public data shape and local assets
 
 Office holders lead in this order: President, R&D Head, Secretary, Treasurer,
 Event Manager. Ordinary Members follow by batch, **079 → 080 → 081 → 082**,
-with names A–Z within each batch. The Home teaser uses the same order. A public
-role label does not grant access to any club system. Each profile has a name,
+with names A–Z within each batch. Show the whole committee in one continuous
+card grid without role or batch section headings. The Home teaser uses the same
+order. A public role label does not grant access to any club system. Each profile has a name,
 role, academic label, portrait and confirmed social links. Missing profiles have
 no logo or link; never guess a destination.
 When the roster intentionally changes, update the browser assertions for its

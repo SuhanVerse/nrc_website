@@ -1019,17 +1019,6 @@ figcaption {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 26px;
 }
-.committee-batch {
-  margin-top: 48px;
-}
-.committee-batch > h2 {
-  font-size: 23px;
-  line-height: 30px;
-  letter-spacing: -0.025em;
-}
-.committee-batch .member-grid {
-  margin-top: 22px;
-}
 .member-card {
   display: flex;
   flex-direction: column;
@@ -1102,7 +1091,7 @@ figcaption {
     transform: none;
   }
 }
-.member-card h3 {
+.member-card h2 {
   margin-top: 22px;
   font-size: 23px;
   line-height: 30px;
