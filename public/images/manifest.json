@@ -1,5 +1,5 @@
 {
-  "revision": "2026-11-09",
+  "revision": "2026-11-13",
   "files": [
     {
       "path": "/images/club-logo.webp",
@@ -63,15 +63,15 @@
     },
     {
       "path": "/images/pranish-maharjan.webp",
-      "sha256": "099706504bbcbda43df2938ab760af59b9bc8a5dc5604726321d760a3b143e6d",
-      "bytes": 7406,
-      "publication": "Authorized by project owner on 2026-11-08"
+      "sha256": "00bb61a742cccb88b98e272a011e5d5ca673e0cb7c41e0b8330f41047ab33395",
+      "bytes": 16614,
+      "publication": "Authorized by project owner on 2026-11-13"
     },
     {
       "path": "/images/samarpan-khadka.webp",
-      "sha256": "404c0b24e354912c518a4e412c1161a6390aafe5ff48d406dd838830d578b663",
-      "bytes": 14350,
-      "publication": "Authorized by project owner on 2026-11-08"
+      "sha256": "562b31dad2e13e02eb276d595ef12738806a71f070698c754c0dc7077fb21b9b",
+      "bytes": 15368,
+      "publication": "Authorized by project owner on 2026-11-13"
     },
     {
       "path": "/images/rachana-tamrakar.webp",

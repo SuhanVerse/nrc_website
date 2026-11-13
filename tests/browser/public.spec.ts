@@ -165,7 +165,7 @@ test('continuous committee grid, order, portraits and confirmed social destinati
   expect(fifth).not.toBeNull();
   expect(sixth).not.toBeNull();
   expect(fifth!.y).toBe(sixth!.y);
-  await expect(cards.locator('a.member-social-link')).toHaveCount(27);
+  await expect(cards.locator('a.member-social-link')).toHaveCount(28);
   await expect(
     cards.locator('.is-pending, span.member-social-link'),
   ).toHaveCount(0);
