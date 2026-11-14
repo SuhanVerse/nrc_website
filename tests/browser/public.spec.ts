@@ -458,6 +458,22 @@ test('Home photos rotate every three seconds, loop, allow quiet dot selection an
 }) => {
   test.setTimeout(60000);
   await page.goto('./');
+  const pcbScenes = page.locator('.pcb-scene');
+  await expect(pcbScenes).toHaveCount(2);
+  await expect(page.locator('.pcb-scene--hero')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  );
+  await expect(page.locator('.pcb-scene--yatra')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  );
+  await expect(page.locator('#pcb-crosses-hero')).toHaveCount(1);
+  await expect(page.locator('#pcb-crosses-yatra')).toHaveCount(1);
+  const pcbPointerEvents = await pcbScenes.evaluateAll((nodes) =>
+    nodes.map((node) => getComputedStyle(node).pointerEvents),
+  );
+  expect(pcbPointerEvents).toEqual(['none', 'none']);
   const caption = page.locator('[data-gallery-caption]');
   const gallery = page.locator('[data-gallery]');
   const dots = gallery.locator('[data-gallery-select]');
