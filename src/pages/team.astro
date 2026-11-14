@@ -8,7 +8,11 @@ import { url } from '../content/site';
 const committee = sortCommittee(club.members);
 ---
 
-<SiteLayout title="Our committee" section="team">
+<SiteLayout
+  title="Our committee"
+  description="Meet the student office holders and committee members of NCE Robotics Club at National College of Engineering, Lalitpur."
+  section="team"
+>
   <section class="team-page container" aria-labelledby="team-title">
     <nav aria-label="Breadcrumb" class="breadcrumb">
       <a href={url('/')}>Home</a> <span aria-hidden="true">/</span>{' '}

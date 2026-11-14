@@ -7,7 +7,11 @@ import { resolveMembershipState } from '../features/membership/state';
 const membership = resolveMembershipState(club.membership);
 ---
 
-<SiteLayout title="Contact" section="contact">
+<SiteLayout
+  title="Contact"
+  description="Contact NCE Robotics Club by email, social channels or visit Block B at National College of Engineering, Talchhikhel, Lalitpur."
+  section="contact"
+>
   <section class="container contact-page">
     <p class="label page-label">Get in touch</p>
     <h1>Contact the club.</h1>
@@ -55,8 +59,7 @@ const membership = resolveMembershipState(club.membership);
         <div>
           <h2 id="contact-visit-title">Visit</h2>
           <p>
-            {club.club.location}
-            <br />
+            {club.club.location} <br />
             {club.club.address}
           </p>
         </div>
