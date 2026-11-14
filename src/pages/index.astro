@@ -3,6 +3,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import EventCarousel from '../components/EventCarousel.astro';
 import ProjectImage from '../components/ProjectImage.astro';
+import PcbBackground from '../components/PcbBackground.astro';
 import Arrow from '../components/Arrow.astro';
 import { club } from '../content/public';
 import { sortCommittee } from '../features/committee/order';
@@ -13,6 +14,7 @@ const committee = sortCommittee(club.members);
 
 <SiteLayout title="Home" section="home">
   <section class="hero container">
+    <PcbBackground variant="hero" />
     <div class="hero-grid">
       <div class="hero-copy">
         <p class="location">National College of Engineering, Lalitpur</p>
@@ -88,6 +90,7 @@ const committee = sortCommittee(club.members);
     </div>
   </section>
   <section class="band yatra-band">
+    <PcbBackground variant="yatra" />
     <div class="container yatra-grid">
       <EventCarousel
         id="home-yatra-photos"
