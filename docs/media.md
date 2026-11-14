@@ -6,6 +6,10 @@ supplied Yatra photographs and the college logo on **9 November 2026**.
 The website uses optimized derivatives of those originals. The distributed asset
 inventory, hashes and sizes are in `public/images/manifest.json`.
 
+The README preview in `docs/assets/homepage.jpg` is a screenshot of the public
+homepage, captured on 14 November 2026. Its photographs and marks retain the
+same usage terms as the website assets.
+
 Photographs and club/college marks are **not** relicensed under the source
 code's Apache-2.0 license. No general permission to reuse them elsewhere is
 asserted. Keep them in context, retain source credits and obtain permission for
