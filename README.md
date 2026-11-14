@@ -31,17 +31,6 @@ corepack pnpm build
 corepack pnpm preview
 ```
 
-## Update club content
-
-Most content lives in [src/content/club.json](src/content/club.json): committee
-members, confirmed social links, projects, events and membership status. Page
-templates are in `src/pages/`; shared components and styles are in `src/components/`
-and `src/styles/`.
-
-Use approved photographs and keep captions and event details factual. The
-[editing guide](docs/editing.md) covers portrait replacements, image hashes,
-committee ordering and opening or closing membership applications.
-
 ## Check a change
 
 ```sh
