@@ -69,6 +69,7 @@ h2,
 h3 {
   font-family: Archivo, sans-serif;
   font-weight: 600;
+  word-spacing: 0.04em;
 }
 h1:focus,
 main:focus {
@@ -77,7 +78,7 @@ main:focus {
 h2 {
   font-size: 43px;
   line-height: 1.12;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.025em;
 }
 h3 {
   line-height: 1.2;
@@ -322,7 +323,7 @@ a:hover {
 .hero h1 {
   font-size: 93.6px;
   line-height: 92.664px;
-  letter-spacing: -5.429px;
+  letter-spacing: -0.035em;
   font-variation-settings:
     'wght' 620,
     'wdth' 94;
@@ -430,7 +431,7 @@ figcaption {
 }
 .project-title h3 {
   font-size: 32px;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.025em;
   margin-top: 14px;
 }
 .project-copy > p {
@@ -623,7 +624,7 @@ figcaption {
   .hero h1 {
     font-size: clamp(58px, 6.5vw, 93.6px);
     line-height: 0.99;
-    letter-spacing: -0.058em;
+    letter-spacing: -0.035em;
   }
   .header-inner {
     gap: 24px;
@@ -723,7 +724,7 @@ figcaption {
   .hero h1 {
     font-size: clamp(54px, 9vw, 84px);
     line-height: 1;
-    letter-spacing: -0.052em;
+    letter-spacing: -0.035em;
   }
   .hero .lead {
     max-width: 40ch;
@@ -820,7 +821,7 @@ figcaption {
   .hero h1 {
     font-size: clamp(36px, 11.3vw, 52px);
     line-height: 1.02;
-    letter-spacing: -0.052em;
+    letter-spacing: -0.035em;
     font-variation-settings:
       'wght' 630,
       'wdth' 92;
@@ -1002,7 +1003,7 @@ figcaption {
   text-align: center;
   font-size: 62px;
   line-height: 70px;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.028em;
 }
 .team-lead {
   margin-top: 16px;
@@ -1131,7 +1132,7 @@ figcaption {
   margin-top: 24px;
   font-size: 64px;
   line-height: 68px;
-  letter-spacing: -3px;
+  letter-spacing: -0.028em;
 }
 .yatra5-page h1 {
   letter-spacing: -1.92px;
@@ -1251,7 +1252,7 @@ figcaption {
   .team-page h1 {
     font-size: 40px;
     line-height: 48px;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.025em;
   }
   .team-lead {
     font-size: 18px;
@@ -1261,7 +1262,7 @@ figcaption {
   .yatra5-page h1 {
     font-size: 44px;
     line-height: 50px;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.025em;
   }
   .page-lead {
     font-size: 18px;
@@ -1290,13 +1291,13 @@ figcaption {
   margin-top: 24px;
   font-size: 64px;
   line-height: 68px;
-  letter-spacing: -3px;
+  letter-spacing: -0.028em;
 }
 .projects-page h1 {
   margin-top: 24px;
   font-size: 68px;
   line-height: 76.84px;
-  letter-spacing: -3.4px;
+  letter-spacing: -0.028em;
 }
 .page-actions {
   margin-top: 40px;
@@ -1335,7 +1336,7 @@ figcaption {
 .projects-page .project-title h2 {
   font-size: 32px;
   line-height: 40px;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.025em;
   margin-top: 12px;
 }
 .project-note {
@@ -1504,12 +1505,12 @@ figcaption {
   .contact-page h1 {
     font-size: 44px;
     line-height: 50px;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.025em;
   }
   .projects-page h1 {
     font-size: 42px;
     line-height: 47.46px;
-    letter-spacing: -2.1px;
+    letter-spacing: -0.025em;
   }
   .page-actions .button {
     width: 100%;
@@ -1577,7 +1578,7 @@ html {
 .error-page h1 {
   margin: 16px 0;
   font-size: clamp(36px, 5vw, 56px);
-  letter-spacing: -0.045em;
+  letter-spacing: -0.028em;
 }
 .membership-status-card {
   margin-top: 40px;

@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import data from '../../src/content/club.json' with { type: 'json' };
 
 const mapSource =
-  'https://maps.google.com/maps?q=National%20College%20of%20Engineering&t=m&z=11&output=embed&iwloc=near';
+  'https://maps.google.com/maps?q=National%20College%20of%20Engineering%2C%20Talchhikhel%2C%20Lalitpur%2C%20Nepal&t=m&z=15&output=embed&iwloc=near';
 const mapTitle = 'National College of Engineering, Lalitpur location map';
 
 async function mockCollegeMap(page: Page) {
@@ -232,6 +232,12 @@ test('footer shows the college logo, club address and rounded embedded map', asy
   );
   await expect(footer.locator('.address')).toContainText(data.club.location);
   await expect(footer.locator('.address')).toContainText(data.club.address);
+  expect(await page.locator('.brand').textContent()).toContain(
+    'National College of Engineering',
+  );
+  expect(await footer.locator('.address').textContent()).toContain(
+    `${data.club.location} ${data.club.address}`,
+  );
   const map = footer.locator('iframe');
   await expect(map).toHaveCount(1);
   await expect(map).toHaveAttribute('title', mapTitle);
@@ -701,6 +707,23 @@ test('sitemap lists canonical public routes and excludes account/review pages', 
   expect(text).not.toMatch(
     /signin|motion-settings|review|member\/|officer|projects\/(object-sorting-system|3d-printer|projectile-turret)/,
   );
+  const robots = await request.get('robots.txt');
+  expect(robots.status()).toBe(200);
+  expect(await robots.text()).toContain(
+    `Sitemap: https://nceroboticsclub.github.io${base}sitemap.xml`,
+  );
+  const descriptions = new Set<string>();
+  for (const [path] of routes) {
+    const html = await (await request.get(path || './')).text();
+    const desc = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+    expect(desc, path || 'home').toBeTruthy();
+    descriptions.add(desc!);
+    expect(html).toContain(
+      `property="og:image" content="https://nceroboticsclub.github.io${base}images/events-yatra-campus.webp"`,
+    );
+    expect(html).toContain('name="twitter:card" content="summary_large_image"');
+  }
+  expect(descriptions.size).toBe(routes.length);
 });
 
 test('past editions are compact collections with specific See more destinations', async ({
